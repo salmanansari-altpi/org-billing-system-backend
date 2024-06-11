@@ -5,8 +5,6 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import path from "path"
 
-
-
 dotenv.config();
 const app = express();
 app.use(express.json());
@@ -23,10 +21,6 @@ var corsOptions = {
   app.use(cors(corsOptions));
 
 
-
-
-
-  
 app.listen(process.env.port,()=>{
     console.log("pr");
 })
