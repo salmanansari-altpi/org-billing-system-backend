@@ -24,9 +24,14 @@ var corsOptions = {
 
 
 
+// Import routes from the index.js file inside the routes folder
+import routes from './app/routes/index.js';
 
+
+// Mount routes defined in the routes/index.js file
+app.use("/", routes);
 
   
-app.listen(process.env.port,()=>{
+app.listen(process.env.Workspace_PORT,()=>{
     console.log("pr");
 })
