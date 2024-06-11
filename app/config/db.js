@@ -1,7 +1,8 @@
-const Sequelize = require("sequelize");
-require("dotenv").config();
+import Sequelize from "sequelize";
+import dotenv from "dotenv";
+dotenv.config();
 
-const sequelize = new Sequelize(
+export const connection = new Sequelize(
   process.env.Workspace_DB_RDS_NAME,
   process.env.Workspace_DB_RDS_USER,
   process.env.Workspace_DB_RDS_PASS,
@@ -30,7 +31,8 @@ const sequelize = new Sequelize(
 //    );
 
 //Test Connection
-sequelize
+//Test Connection
+connection
   .authenticate()
   .then(() => {
     console.log("Connection has been established successfully.");
@@ -38,5 +40,3 @@ sequelize
   .catch((error) => {
     console.error("Unable to connect to the database: ", error);
   });
-
-module.exports = sequelize;
