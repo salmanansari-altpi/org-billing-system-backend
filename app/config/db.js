@@ -11,9 +11,11 @@ export const connection = new Sequelize(
     dialect: process.env.Workspace_DB_DIALECT,
     dialectOptions: {
       useUTC: false,
+      raw: true,
+      underscored: true, // If your column names in the database are in snake_case, set this to true
     },
     timezone: "+05:30",
-    loggin :false
+    loggin: false,
   }
 );
 // const sequelize = new Sequelize(
