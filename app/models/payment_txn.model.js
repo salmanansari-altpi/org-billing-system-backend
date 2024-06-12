@@ -139,12 +139,12 @@ export const payment_txn = connection.define('payment_txn', {
     created_at: {
       type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: DataTypes.NOW,
+      // defaultValue: DataTypes.NOW,
     },
     updated_at: {
       type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: DataTypes.NOW,
+      // defaultValue: DataTypes.NOW,
     },
     endUser_account_no: {
       type: DataTypes.STRING(20),
@@ -154,5 +154,6 @@ export const payment_txn = connection.define('payment_txn', {
   {
     // Freeze Table Name
     freezeTableName: true,
+    timestamps:true
   }
 );  

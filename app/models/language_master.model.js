@@ -4,7 +4,7 @@ import { connection } from "../config/db.js";
 export const language_master = connection.define(
     'language_master', 
     {
-    Id: {
+    id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       autoIncrement: true,
@@ -30,6 +30,7 @@ export const language_master = connection.define(
   {
     // Freeze Table Name
     freezeTableName: true,
+    timestamps:false
   }
 ); 
   

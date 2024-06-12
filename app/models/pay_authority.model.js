@@ -4,37 +4,37 @@ import { connection } from "../config/db.js";
 export const pay_authority = connection.define(
     'pay_authority', 
     {
-    PayAuthority_Id: {
+    payAuthority_id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       primaryKey: true
     },
-    PayAuthority_Code: {
+    payAuthority_code: {
       type: DataTypes.STRING(4),
       allowNull: true,
       unique: true
     },
-    PayAuthority_Description: {
+    payAuthority_description: {
       type: DataTypes.STRING(50),
       allowNull: true
     },
-    PayAuthority_Note: {
+    payAuthority_note: {
       type: DataTypes.BLOB('long'),
       allowNull: false
     },
-    PayAuthority_Status: {
+    payAuthority_status: {
       type: DataTypes.STRING(2),
       allowNull: true
     },
-    createdAt: {
+    created_at: {
       type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: DataTypes.NOW
+      // defaultValue: DataTypes.NOW
     },
-    updatedAt: {
+    updated_at: {
       type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: DataTypes.NOW
+      // defaultValue: DataTypes.NOW
     }
   },
 
@@ -43,5 +43,6 @@ export const pay_authority = connection.define(
 
     // Freeze Table Name
     freezeTableName: true,
+    timestamps:true
   }
 );  

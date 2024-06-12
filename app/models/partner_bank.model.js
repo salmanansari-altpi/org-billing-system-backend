@@ -28,18 +28,19 @@ export const partner_bank = connection.define(
     type: DataTypes.BLOB,
     allowNull: true
   },
-  createdAt: {
+  created_at: {
     type: DataTypes.DATE,
-    allowNull: false
+
   },
-  updatedAt: {
+  updated_at: {
     type: DataTypes.DATE,
-    allowNull: false
+ 
   }
 }, 
 {
     // Freeze Table Name
     freezeTableName: true,
+    timestamps:true
   }
 );
 
