@@ -7,6 +7,15 @@ import { user_type_master } from "./user_type_master.model.js";
 import { agent_biller_details } from "./agent_biller_details.js";
 import { biller } from "./biller.js";
 import { biller_bills } from "./Biller_Bills.js";
+import { registration_log_out } from "./registration_log_out.js";
+import { role_master } from "./role_master.js";
+import { sales_login } from "./sales_login.js";
+import { source_of_bill } from "./source_of_bill.js";
+import { switch_master } from "./switch_master.js";
+import { systemcode } from "./systemcode.js";
+import { ui_merchant } from "./ui_merchant.js";
+import { user_access } from "./user_access.js";
+import { user_master } from "./user_master.js";
 
 export const models = {
   agent_biller_details,
@@ -14,8 +23,17 @@ export const models = {
   biller_bills,
   product,
   prod_integration,
+  role_master,
   registration_log_in,
+  registration_log_out,
   registration_adminuser,
+  sales_login,
+  systemcode,
+  source_of_bill,
+  switch_master,
+  ui_merchant,
+  user_access,
+  user_master,
   user_type_master,
 };
 
