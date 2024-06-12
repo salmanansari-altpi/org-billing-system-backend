@@ -7,6 +7,6 @@ import { getBillerDetails } from "../../controllers/biller_details.controller.js
 
 
 
-router.route('/getBillerDetails').get(getBillerDetails);
+router.route('/getBillerDetails').post(getBillerDetails);
 
 export default router;
