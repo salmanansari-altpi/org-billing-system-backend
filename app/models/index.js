@@ -22,6 +22,14 @@ import { ui_merchant } from "./ui_merchant.js";
 import { user_access } from "./user_access.js";
 import { user_master } from "./user_master.js";
 
+import {customer_biller_cref} from "./customer_biller_cref.model.js";
+import {language_master} from "./language_master.model.js";
+import {partner_bank} from "./partner_bank.model.js";
+import {pay_authority} from "./pay_authority.model.js";
+import {payment_methods} from "./payment_methods.model.js";
+import {payment_txn} from "./payment_txn.model.js"
+
+
 export const models = {
   prod_integration,
   product,
@@ -53,6 +61,13 @@ export const models = {
   user_access,
   user_master,
   user_type_master,
+ 
+    customer_biller_cref,
+    language_master,
+    partner_bank,
+    pay_authority,
+    payment_methods,
+    payment_txn 
 };
 
 //Dictates whether tables are modified or not;
