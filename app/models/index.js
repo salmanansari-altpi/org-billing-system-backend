@@ -3,21 +3,32 @@ import { product } from "./product.model.js";
 import { registration_adminuser } from "./registration_adminuser.model.js";
 import { registration_log_in } from "./registration_log_in.model.js";
 import { user_type_master } from "./user_type_master.model.js";
-
 import { agent_biller_details } from "./agent_biller_details.js";
 import { biller } from "./biller.js";
 import { biller_bills } from "./Biller_Bills.js";
+import {biller_category_master} from "./biller_category_master.model.js";
+import {biller_contact} from "./biller_contact.model.js";
+import {country}  from "./country.model.js";
+import {currency  } from "./currency.model.js";
+import {customer} from "./customer.model.js";
+
 
 export const models = {
-  agent_biller_details,
-  biller,
-  biller_bills,
-  product,
-  prod_integration,
-  registration_log_in,
-  registration_adminuser,
-  user_type_master,
-};
+   
+    prod_integration,
+    product,
+    registration_adminuser,
+    registration_log_in,
+    user_type_master,
+    agent_biller_details,
+    biller,
+    biller_bills,
+    biller_category_master,
+    biller_contact,
+    country,
+    currency,
+    customer
+}
 
 //Dictates whether tables are modified or not;
 const flag = false; // !! KEEP IT FALSE I REPEAT KEEP IT FALSE
