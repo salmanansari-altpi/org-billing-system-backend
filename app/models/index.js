@@ -1,27 +1,28 @@
-import { billerDetails } from "./Biller_details.model.js";
 import { prod_integration } from "./prod_integration.model.js";
 import { product } from "./product.model.js";
 import { registration_adminuser } from "./registration_adminuser.model.js";
 import { registration_log_in } from "./registration_log_in.model.js";
 import { user_type_master } from "./user_type_master.model.js";
 
-
-
+import { agent_biller_details } from "./agent_biller_details.js";
+import { biller } from "./biller.js";
+import { biller_bills } from "./Biller_Bills.js";
 
 export const models = {
-    billerDetails,
-    prod_integration,
-    user_type_master,
-    registration_log_in,
-    registration_adminuser,
-    product
-}
+  agent_biller_details,
+  biller,
+  biller_bills,
+  product,
+  prod_integration,
+  registration_log_in,
+  registration_adminuser,
+  user_type_master,
+};
 
 //Dictates whether tables are modified or not;
-const flag = true; // !! KEEP IT FALSE I REPEAT KEEP IT FALSE
+const flag = false; // !! KEEP IT FALSE I REPEAT KEEP IT FALSE
 
-const flag2 = true;//! ARE YOU SURE? 
-
+const flag2 = false; //! ARE YOU SURE?
 
 const syncAllTables = async (models) => {
   if (flag) {
