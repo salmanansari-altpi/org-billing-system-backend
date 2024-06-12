@@ -3,10 +3,15 @@ import { product } from "./product.model.js";
 import { registration_adminuser } from "./registration_adminuser.model.js";
 import { registration_log_in } from "./registration_log_in.model.js";
 import { user_type_master } from "./user_type_master.model.js";
-
 import { agent_biller_details } from "./agent_biller_details.js";
 import { biller } from "./biller.js";
 import { biller_bills } from "./Biller_Bills.js";
+import { biller_category_master } from "./biller_category_master.model.js";
+import { biller_contact } from "./biller_contact.model.js";
+import { country } from "./country.model.js";
+import { currency } from "./currency.model.js";
+import { customer } from "./customer.model.js";
+
 import { registration_log_out } from "./registration_log_out.js";
 import { role_master } from "./role_master.js";
 import { sales_login } from "./sales_login.js";
@@ -18,6 +23,19 @@ import { user_access } from "./user_access.js";
 import { user_master } from "./user_master.js";
 
 export const models = {
+  prod_integration,
+  product,
+  registration_adminuser,
+  registration_log_in,
+  user_type_master,
+  agent_biller_details,
+  biller,
+  biller_bills,
+  biller_category_master,
+  biller_contact,
+  country,
+  currency,
+  customer,
   agent_biller_details,
   biller,
   biller_bills,
