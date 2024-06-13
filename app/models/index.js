@@ -71,7 +71,8 @@ export const models = {
 };
 
 //Dictates whether tables are modified or not;
-const flag = false; // !! KEEP IT FALSE I REPEAT KEEP IT FALSE
+// !! KEEP IT FALSE I REPEAT KEEP IT FALSE
+const flag = false;
 
 const flag2 = false; //! ARE YOU SURE?
 
