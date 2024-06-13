@@ -67,6 +67,10 @@ export const biller = connection.define(
       type: DataTypes.STRING(6),
       allowNull: false,
     },
+    agent_id:{
+       type:DataTypes.INTEGER(),
+       allowNull:false,
+    },
     logo_image: {
       type: DataTypes.BLOB("long"),
       allowNull: true,
