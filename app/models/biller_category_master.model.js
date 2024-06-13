@@ -25,12 +25,12 @@ export const biller_category_master = connection.define(
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
-      
+      defaultValue: DataTypes.NOW,
     },
     updatedAt: {
       type: DataTypes.DATE,
       allowNull: false,
-      
+      defaultValue: DataTypes.NOW,
     },
   },
   {

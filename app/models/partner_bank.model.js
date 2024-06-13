@@ -30,17 +30,17 @@ export const partner_bank = connection.define(
   },
   created_at: {
     type: DataTypes.DATE,
-    allowNull:false,
+
   },
   updated_at: {
     type: DataTypes.DATE,
-    allowNull:false,
+ 
   }
 }, 
 {
     // Freeze Table Name
     freezeTableName: true,
-    timestamps:false
+    timestamps:true
   }
 );
 
