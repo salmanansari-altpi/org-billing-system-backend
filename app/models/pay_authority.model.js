@@ -29,17 +29,20 @@ export const pay_authority = connection.define(
     created_at: {
       type: DataTypes.DATE,
       allowNull: false,
-      // : DataTypes.NOW
+      // defaultValue: DataTypes.NOW
     },
     updated_at: {
       type: DataTypes.DATE,
       allowNull: false,
-      // : DataTypes.NOW
+      // defaultValue: DataTypes.NOW
     }
   },
+
+
 {
+
     // Freeze Table Name
     freezeTableName: true,
-    timestamps:false
+    timestamps:true
   }
 );  
