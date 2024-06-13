@@ -41,12 +41,12 @@ export const customer = connection.define(
     createdAt: {
       type: DataTypes.DATE,
       allowNull: true,
-      defaultValue: DataTypes.NOW,
+      
     },
     updatedAt: {
       type: DataTypes.DATE,
       allowNull: true,
-      defaultValue: DataTypes.NOW,
+      
     },
   },{
     // Freeze Table Name

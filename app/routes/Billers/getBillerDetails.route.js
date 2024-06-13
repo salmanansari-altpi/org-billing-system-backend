@@ -1,12 +1,11 @@
 import express from "express";
+import { getBillFrequencyPerDay, getBillFrequencyPerMontly, getBillFrequencyPerWeek, getBillFrequencyPerYearly } from "../../controllers/billFrequency.controller.js";
 const router = express.Router();
 
-//! please refer this syntax for importing any model 
-import { models } from "../../models/index.js";
 
-const { biller } = models; 
-
-router.route("/getBillerDetails").post(biller);
-router.route("/getAllCategories").get(biller);
+router.route("/getBillFrequencyPerDay").get(getBillFrequencyPerDay);
+router.route("/getBillFrequencyPerWeek").get(getBillFrequencyPerWeek);
+router.route("/getBillFrequencyPerMontly ").get(getBillFrequencyPerMontly);
+router.route("/getBillFrequencyPerYearly").get(getBillFrequencyPerYearly);
 
 export default router;

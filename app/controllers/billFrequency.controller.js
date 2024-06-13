@@ -1,32 +1,58 @@
+import { models } from "../models/index.js";
 
- import biller_category_master from "../models/biller_category_master.model";
-import { biller_bills } from "../models/Biller_Bills";
+const { biller_frequency } = models;
 
-
-const getAllCategories = async (req, res) => {
+export const getBillFrequencyPerDay = async (req, res) => {
   try {
-
-    // const { customer_type } = req.query;
-
-    //finding all the categories
-    const allCategories = await biller_category_master.findAll({
-
-        where: {
-            customer_type: "TELCOM",
-          },
+    //finding perday bill frequency
+    const billFrequencyPerday = await biller_frequency.findAll({
+      attributes: ["frequency_code", "frequency_description"],
     });
-    console.log(allCategories);
-  
-    return res
-      .status(200)
-      .json({ data: { getAllCategories } });
+    console.log(billFrequencyPerday);
+
+    return res.status(200).json({ data: { billFrequencyPerday } });
   } catch (error) {
     console.log(error);
   }
 };
-export default getAllCategories;
 
+export const getBillFrequencyPerWeek = async (req, res) => {
+  try {
+    //finding perweekly bill frequency
+    const BillFrequencyPerWeek = await biller_frequency.findAll({
+      attributes: ["frequency_code", "frequency_description"],
+    });
+    console.log(BillFrequencyPerWeek);
 
+    return res.status(200).json({ data: { BillFrequencyPerWeek } });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
+export const getBillFrequencyPerMontly = async (req, res) => {
+  try {
+    //finding permonthly bill frequency
+    const BillFrequencyPerMontly = await biller_frequency.findAll({
+      attributes: ["frequency_code", "frequency_description"],
+    });
+    console.log(BillFrequencyPerMontly);
 
-  
+    return res.status(200).json({ data: { BillFrequencyPerMontly } });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getBillFrequencyPerYearly = async (req, res) => {
+  try {
+    //finding peryearly bill frequency
+    const BillFrequencyPerYearly = await biller_frequency.findAll({
+      attributes: ["frequency_code", "frequency_description"],
+    });
+    console.log(BillFrequencyPerYearly);
+    return res.status(200).json({ data: { BillFrequencyPerYearly } });
+  } catch (error) {
+    console.log(error);
+  }
+};
