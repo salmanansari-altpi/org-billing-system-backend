@@ -30,10 +30,15 @@ export const partner_bank = connection.define(
   },
   created_at: {
     type: DataTypes.DATE,
+    allowNull:false,
+    defaultValue:NOW,
+
 
   },
   updated_at: {
     type: DataTypes.DATE,
+    allowNull:false,
+    defaultValue:NOW,
  
   }
 }, 

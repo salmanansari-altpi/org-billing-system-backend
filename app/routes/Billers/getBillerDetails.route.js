@@ -7,5 +7,6 @@ import { models } from "../../models/index.js";
 const { biller } = models; 
 
 router.route("/getBillerDetails").post(biller);
+router.route("/getAllCategories").get(biller);
 
 export default router;
