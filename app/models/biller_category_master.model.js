@@ -20,8 +20,6 @@ export const biller_category_master = connection.define(
     },
     notes: {
       type: DataTypes.BLOB("medium"),
-
-      
       allowNull: false,
     },
     createdAt: {
@@ -34,9 +32,9 @@ export const biller_category_master = connection.define(
       allowNull: false,
       
     },
-},
-    {
-        // Freeze Table Name
-        freezeTableName: true,
-      }
-)
+  },
+  {
+    // Freeze Table Name
+    freezeTableName: true,
+  }
+);
