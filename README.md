@@ -13,3 +13,15 @@ QR Code Generation: Merchants or individuals generate a unique DuitNow QR code c
 Customers use their mobile banking app or e-wallet to scan the DuitNow QR code displayed by the merchant or individual.
 
 The payment is processed through the DuitNow platform, which facilitates seamless fund transfers between participating banks and financial institutions.
+
+# .env File For Configer the environment
+Workspace="DEV"
+Workspace_PORT=4002
+DB_PORT=3306
+JWT_SECRET = "Alohomora"
+Workspace_DB_DIALECT="mysql"
+
+Workspace_DB_RDS_HOST="localhost"
+Workspace_DB_RDS_NAME="Malaysia"
+Workspace_DB_RDS_USER="root"
+Workspace_DB_RDS_PASS=""
