@@ -2,7 +2,7 @@ import { models } from "../../models/index.js";
 
 const { biller_frequency } = models;
 
-export const getBillFrequency = async (req, res) => {
+export const getbillfrequency = async (req, res) => {
   try {
     // Finding the bill frequency based on the frequency code
     const billFrequency = await biller_frequency.findAll({
