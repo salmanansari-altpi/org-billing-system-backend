@@ -1,11 +1,11 @@
 import { DataTypes, NOW } from "sequelize";
 import { connection } from "../config/db.js";
 
-export const agent_biller_details = connection.define(
-  "agent_biller_details",
+export const agent_details = connection.define(
+  "agent_details",
   {
     agent_id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER(11),
       autoIncrement: true,
       primaryKey: true,
       allowNull: false,
@@ -16,30 +16,6 @@ export const agent_biller_details = connection.define(
     },
     agent_type: {
       type: DataTypes.STRING(6),
-      allowNull: true,
-    },
-    app_ref_sr_no: {
-      type: DataTypes.INTEGER(11),
-      allowNull: true,
-    },
-    biller_id: {
-      type: DataTypes.INTEGER(6),
-      allowNull: true,
-    },
-    biller_code: {
-      type: DataTypes.STRING(6),
-      allowNull: true,
-    },
-    pricing_id: {
-      type: DataTypes.INTEGER(11),
-      allowNull: true,
-    },
-    settlement_id: {
-      type: DataTypes.INTEGER(11),
-      allowNull: true,
-    },
-    tax_id_no: {
-      type: DataTypes.STRING(100),
       allowNull: true,
     },
     address_1: {
@@ -137,18 +113,6 @@ export const agent_biller_details = connection.define(
     password: {
       type: DataTypes.STRING(50),
       allowNull: true,
-    },
-    mdr_percentage: {
-      type: DataTypes.DECIMAL(5, 2),
-      allowNull: true,
-    },
-    created_at: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
-    updated_at: {
-      type: DataTypes.DATE,
-      allowNull: false,
     },
   },
   {

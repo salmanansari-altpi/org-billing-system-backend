@@ -29,14 +29,11 @@ import { partner_bank } from "./partner_bank.model.js";
 import { pay_authority } from "./pay_authority.model.js";
 import { payment_methods } from "./payment_methods.model.js";
 import { payment_txn } from "./payment_txn.model.js";
+import { agent_details } from "./agent_details.js";
 
 export const models = {
-  prod_integration,
-  product,
-  registration_adminuser,
-  registration_log_in,
-  user_type_master,
   agent_biller_details,
+  agent_details,
   biller,
   biller_bills,
   biller_category_master,
@@ -48,13 +45,17 @@ export const models = {
   agent_biller_details,
   biller,
   biller_bills,
+  prod_integration,
   product,
   prod_integration,
-  role_master,
+  registration_adminuser,
+  registration_log_in,
   registration_log_in,
   registration_log_out,
   registration_adminuser,
+  role_master,
   sales_login,
+  user_type_master,
   systemcode,
   source_of_bill,
   switch_master,
