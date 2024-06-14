@@ -1,10 +1,12 @@
 import express from "express";
 const router = express.Router();
 
-import getBillerDetails from "./Billers/getBillerDetails.route.js";
+import uploadBillFile from "./Billers/getBillerDetails.route.js";
 import agentApi from "./agents/agentsApi.route.js";
+import addNewBiller from "./Billers/getBillerDetails.route.js";
 // Mount route files
-router.use("/biller", getBillerDetails);
+router.use("/billFile", uploadBillFile);
 router.use("/agent", agentApi);
+router.use("/billerDetails",addNewBiller)
 
 export default router;

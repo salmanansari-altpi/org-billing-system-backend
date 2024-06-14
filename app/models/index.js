@@ -75,7 +75,7 @@ export const models = {
 // !! KEEP IT FALSE I REPEAT KEEP IT FALSE
 const flag = false;
 
-const flag2 = false; //! ARE YOU SURE?
+const flag2 = true; //! ARE YOU SURE?
 
 const syncAllTables = async (models) => {
   if (flag) {
