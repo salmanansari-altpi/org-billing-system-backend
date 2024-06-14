@@ -26,16 +26,7 @@ export const pay_authority = connection.define(
       type: DataTypes.STRING(2),
       allowNull: true
     },
-    created_at: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      // defaultValue: DataTypes.NOW
-    },
-    updated_at: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      // defaultValue: DataTypes.NOW
-    }
+    
   },
 
 
