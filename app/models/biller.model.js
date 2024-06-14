@@ -67,8 +67,12 @@ export const biller = connection.define(
       type: DataTypes.STRING(6),
       allowNull: false,
     },
+    bill_freq_id:{
+      type: DataTypes.INTEGER(6),
+      allowNull:false,
+    },
     agent_id:{
-       type:DataTypes.INTEGER(),
+       type:DataTypes.INTEGER(6),
        allowNull:false,
     },
     logo_image: {
@@ -90,6 +94,10 @@ export const biller = connection.define(
     background_image_indicator: {
       type: DataTypes.STRING(1),
       allowNull: true,
+    },
+    bill_amount_id:{
+      type:DataTypes.INTEGER(6),
+      allowNull:true
     },
     created_at: {
       type: DataTypes.DATE,

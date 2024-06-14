@@ -26,10 +26,14 @@ export const pay_authority = connection.define(
       type: DataTypes.STRING(2),
       allowNull: true
     },
+    
   },
+
+
 {
+
     // Freeze Table Name
     freezeTableName: true,
-    timestamps:true
+    timestamps:false
   }
 );  
