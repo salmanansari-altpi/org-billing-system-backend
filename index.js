@@ -3,12 +3,18 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
+import session from "express-session";
 import path from "path";
+
+export const otps = [];
 
 dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(bodyParser.json({ limit: "330mb", extended: true }));
+app.use(
+  session({ secret: "khuljasimsim", resave: false, saveUninitialized: false })
+);
 
 app.use(
   bodyParser.urlencoded({

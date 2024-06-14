@@ -18,6 +18,10 @@ export const customer = connection.define(
       type: DataTypes.STRING(30),
       allowNull: true,
     },
+    cust_password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     cust_mobile_no: {
       type: DataTypes.STRING(30),
       allowNull: true,
@@ -48,7 +52,8 @@ export const customer = connection.define(
       allowNull: true,
       defaultValue: DataTypes.NOW,
     },
-  },{
+  },
+  {
     // Freeze Table Name
     freezeTableName: true,
   }
