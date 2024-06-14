@@ -10,6 +10,14 @@ export const agent_biller_details = connection.define(
       primaryKey: true,
       allowNull: false,
     },
+    agent_name: {
+      type: DataTypes.STRING(100),
+      allowNull: true,
+    },
+    agent_type: {
+      type: DataTypes.STRING(6),
+      allowNull: true,
+    },
     app_ref_sr_no: {
       type: DataTypes.INTEGER(11),
       allowNull: true,
@@ -22,12 +30,12 @@ export const agent_biller_details = connection.define(
       type: DataTypes.STRING(6),
       allowNull: true,
     },
-    agent_name: {
-      type: DataTypes.STRING(100),
+    pricing_id: {
+      type: DataTypes.INTEGER(11),
       allowNull: true,
     },
-    agent_type: {
-      type: DataTypes.STRING(6),
+    settlement_id: {
+      type: DataTypes.INTEGER(11),
       allowNull: true,
     },
     tax_id_no: {

@@ -1,11 +1,20 @@
 import express from "express";
 const router = express.Router();
 
-//! please refer this syntax for importing any model 
-import { models } from "../../models/index.js";
+import { getAllBillerCategory } from "../../controllers/biller/AllCategorys.controller.js";
+import { agentDetails } from "../../controllers/biller/allAgentDetails.controller.js";
+import { allCurrency } from "../../controllers/biller/allCurrencys.controller.js";
+import { countryDetails } from "../../controllers/biller/allCountryDetails.controller.js";
+import { allBillFequencys } from "../../controllers/biller/allBillFequencys.controller.js";
+import { getbillfrequency } from "../../controllers/biller/billFrequency.controller.js";
 
-const { biller } = models; 
+router.route("/allcategory").get(getAllBillerCategory);
+router.route("/allagentdetail").get(agentDetails);
+router.route("/allcurrencydetails").get(allCurrency);
+router.route("/allcountrydetails").get(countryDetails);
+router.route("/allbillfequencys").get(allBillFequencys);
+router.route("/getbillfrequency").get(getbillfrequency);
 
-router.route("/getBillerDetails").post(biller);
+
 
 export default router;
