@@ -37,19 +37,23 @@ export const models = {
   registration_log_in,
   user_type_master,
   agent_biller_details,
+  biller,
+  biller_bills,
   biller_category_master,
   biller_contact,
   biller_frequency,
   country,
   currency,
   customer,
-
+  agent_biller_details,
   biller,
   biller_bills,
-
+  product,
+  prod_integration,
   role_master,
- 
+  registration_log_in,
   registration_log_out,
+  registration_adminuser,
   sales_login,
   systemcode,
   source_of_bill,
@@ -70,7 +74,7 @@ export const models = {
 // !! KEEP IT FALSE I REPEAT KEEP IT FALSE
 const flag = false;
 
-const flag2 = true; //! ARE YOU SURE?
+const flag2 = false; //! ARE YOU SURE?
 
 const syncAllTables = async (models) => {
   if (flag) {

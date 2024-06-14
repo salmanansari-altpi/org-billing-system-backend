@@ -1,7 +1,6 @@
 import express from "express";
 const router = express.Router();
 
-import { getBillFrequencyPerDay, getBillFrequencyPerMontly, getBillFrequencyPerWeek, getBillFrequencyPerYearly } from "../../controllers/billFrequency.controller.js";
 import { getAllBillerCategory } from "../../controllers/biller/AllCategorys.controller.js";
 import { agentDetails } from "../../controllers/biller/allAgentDetails.controller.js";
 import { allCurrency } from "../../controllers/biller/allCurrencys.controller.js";
@@ -15,6 +14,7 @@ router.route("/allcurrencydetails").get(allCurrency);
 router.route("/allcountrydetails").get(countryDetails);
 router.route("/allbillfequencys").get(allBillFequencys);
 router.route("/getBillFrequency").get(getBillFrequency);
+
 
 
 export default router;

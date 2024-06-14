@@ -15,6 +15,7 @@ Customers use their mobile banking app or e-wallet to scan the DuitNow QR code d
 The payment is processed through the DuitNow platform, which facilitates seamless fund transfers between participating banks and financial institutions.
 
 # .env File For Configer the environment
+```
 Workspace="DEV"
 Workspace_PORT=4002
 DB_PORT=3306
@@ -25,3 +26,4 @@ Workspace_DB_RDS_HOST="localhost"
 Workspace_DB_RDS_NAME="Malaysia"
 Workspace_DB_RDS_USER="root"
 Workspace_DB_RDS_PASS=""
+```

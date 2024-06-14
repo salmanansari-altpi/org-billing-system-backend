@@ -29,12 +29,12 @@ export const product = connection.define(
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
-      
+      defaultValue: DataTypes.NOW,
     },
     updatedAt: {
       type: DataTypes.DATE,
       allowNull: false,
-      
+      defaultValue: DataTypes.NOW,
     },
   },
   {

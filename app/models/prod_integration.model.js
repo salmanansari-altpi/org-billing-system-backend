@@ -86,7 +86,7 @@ export const prod_integration = connection.define(
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
-      
+      defaultValue: DataTypes.NOW,
     },
     webhook: {
       type: DataTypes.STRING(255),
@@ -95,7 +95,7 @@ export const prod_integration = connection.define(
     updatedAt: {
       type: DataTypes.DATE,
       allowNull: false,
-      
+      defaultValue: DataTypes.NOW,
     },
   },
   {
