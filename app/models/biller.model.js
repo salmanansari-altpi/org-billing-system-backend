@@ -75,6 +75,14 @@ export const biller = connection.define(
        type:DataTypes.INTEGER(6),
        allowNull:false,
     },
+    bill_currency_id:{
+      type:DataTypes.INTEGER(6),
+      allowNull:true
+    },
+    billing_plan_type_id:{
+      type:DataTypes.INTEGER(3)
+
+    },
     logo_image: {
       type: DataTypes.BLOB("long"),
       allowNull: true,
@@ -95,10 +103,7 @@ export const biller = connection.define(
       type: DataTypes.STRING(1),
       allowNull: true,
     },
-    bill_amount_id:{
-      type:DataTypes.INTEGER(6),
-      allowNull:true
-    },
+    
     created_at: {
       type: DataTypes.DATE,
       allowNull: false,

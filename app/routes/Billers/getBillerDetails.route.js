@@ -8,6 +8,7 @@ import { countryDetails } from "../../controllers/biller/allCountryDetails.contr
 import { allBillFequencys } from "../../controllers/biller/allBillFequencys.controller.js";
 import { addNewBiller } from "../../controllers/biller/addNewBiller.controller.js";
 import { uploadBillFile } from "../../controllers/biller/uploadBillFile.controller.js";
+import { billerPlanType } from "../../controllers/biller/billerPlanType.controller.js";
 import { allSourceOfBill } from "../../controllers/biller/allSourceOfBill.controller.js";
 
 router.route("/allcategory").get(getAllBillerCategory);
@@ -18,5 +19,7 @@ router.route("/allbillfequencys").get(allBillFequencys);
 router.route("/allsourceofbills").get(allSourceOfBill);
 router.route("/addnewbiller").post(addNewBiller);
 router.route("/uploadBill").post(uploadBillFile);
+router.get("/getPlanType",billerPlanType)
+
 
 export default router;

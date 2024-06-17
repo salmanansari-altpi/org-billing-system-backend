@@ -7,6 +7,8 @@ import XLSX from "xlsx";
 import csv from "csv-parser";
 import { parseString } from "xml2js";
 import { biller_bills } from '../../models/Biller_Bills.model.js';
+import path from 'path';
+import fs from 'fs';
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage }).single('file')
@@ -20,6 +22,8 @@ upload(req, res, async(err)=>{
       }
       try {
         const{ billerCode }= req.body;
+        const filePath = path.join("upload", `${billerCode}.xlsx`);
+        fs.writeFileSync(filePath, req.file.buffer);
         const workbook = XLSX.read(req.file.buffer, { type: 'buffer' });
         const sheetNameList = workbook.SheetNames;
         const jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetNameList[0]]);
