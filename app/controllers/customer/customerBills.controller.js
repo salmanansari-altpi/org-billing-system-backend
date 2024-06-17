@@ -18,21 +18,19 @@ export const getCustomerBills = async (req, res) => {
         .json({ success: false, message: "No bills found!" });
     }
 
+    let billerData = [];
+      // billsData = [];
     const billers = custBills.map(async (cust) => {
-      let billerData = [],
-        billsData = [];
       billerData.push(
         await biller.findAll({
           raw: true,
-          attributes: ["biller_name", "biller_category"],
-          where: { biller_id: cust.cust_biller_id },
-        })
-      );
-
-      billsData.push(
+          attributes: ["biller_code","biller_name", "biller_category"],
+          where: { biller_id: cust.biller_id },
+        }),
         await biller_bills.findAll({
           raw: true,
           attributes: [
+            "biller_customer_account_no",
             "biller_bill_no",
             "biller_bill_date",
             "biller_bill_amount",
@@ -51,7 +49,9 @@ export const getCustomerBills = async (req, res) => {
         })
       );
 
-      return [...billerData, ...billsData];
+      
+
+      return [...billerData];
     });
 
     await Promise.all(biller);
@@ -60,3 +60,34 @@ export const getCustomerBills = async (req, res) => {
     res.status(500).json({ success: false, message: "Something Went Wrong!" });
   }
 };
+
+export const generateQrforBill = async(req, res)=>{
+  const { id } = req.user;
+  const{biller_code,biller_customer_account_no,biller_bill_no} = req.body;
+  if(!id || biller_code || biller_customer_account_no){
+    return res.status(500).json({ success: false, message: "Something Went Wrong!" });
+}
+
+const findBiller_customer = await customer.findOne({where:{customer_id:id}});
+   const findBiller = await biller.findOne({where:{biller_code:biller_code}})
+    if(!findBiller_customer || !findBiller){
+        return res.status(500).json({ success: false, message: "Something Went Wrong!" });
+    }
+    const findamount = await biller_bills.findOne({
+      where:{
+        biller_id:findBiller.biller_id,
+        biller_customer_account_no:biller_customer_account_no
+      },
+      attributes:["biller_bill_amount"]
+    })
+
+  const intent =  `upi://pay?tr=&tid=&pa=&mc=1234&pn=${findBiller.biller_name}&am=${findamount}&cu=&tn=Pay%20for%20merchant`;
+    // biller id 
+    return res.status(200).json({
+      success :true,
+      data:intent
+
+    })
+// generate QR code ---------- here 
+
+}

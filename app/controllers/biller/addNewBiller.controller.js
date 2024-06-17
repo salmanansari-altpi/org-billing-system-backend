@@ -4,19 +4,22 @@ const { biller,biller_category_master,country,source_of_bill,currency,biller_fre
 
 export const addNewBiller =async (req,res)=>{
     try {
-        const {biller_code, 
+        const {customer_type, 
             biller_name,
-            upi_trailer,
-            bill_data_location,
-            bill_data_feed_type,
-            bill_amount_type,
-            bill_frequency,
-            agent
+            currency_code,
+            billing_plan_type_code,
+          bill_date_of_month,
+          early_payment_date,
+          discount_per,
+            frequency_code,
+            biller_plan_code,
+            agent_id
         
          } = req.body;
 
-        const billCategory=  await biller_category_master.findOne({where:{customer_type:biller_code}});
-        const country_id = await country.findOne({where:{country_name:bill_data_location}})
+        const billCategory=  await biller_category_master.findOne({where:{customer_type}});
+        const country_id = await country.findOne({where:{currency_code:currency_code}})
+        // ------- add new biller 
         const sourceOfBill = await source_of_bill.findOne({where:{source_of_bill_code:bill_data_feed_type}});
         const amountType = await currency.findOne({where:{currency_code:bill_amount_type}});
         const billFrequency = await biller_frequency.findOne({where:{frequency_code:bill_frequency}});
