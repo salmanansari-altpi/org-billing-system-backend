@@ -42,11 +42,11 @@ export const biller_bills = connection.define(
     },
     biller_other_charges: {
       type: DataTypes.DECIMAL(12, 2),
-      allowNull: false,
+      allowNull: true,
     },
     biller_taxes: {
       type: DataTypes.DECIMAL(12, 2),
-      allowNull: false,
+      allowNull: true,
     },
     biller_pending_due: {
       type: DataTypes.DECIMAL(12, 2),
@@ -58,31 +58,31 @@ export const biller_bills = connection.define(
     },
     last_meter_reading: {
       type: DataTypes.DECIMAL(14, 2),
-      allowNull: false,
+      allowNull: true,
     },
     current_meter_reading: {
       type: DataTypes.DECIMAL(14, 2),
-      allowNull: false,
+      allowNull: true,
     },
     units_consumed: {
       type: DataTypes.DECIMAL(14, 2),
-      allowNull: false,
+      allowNull: true,
     },
     reading_date: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
     },
     paid_indicator: {
       type: DataTypes.STRING(1),
-      allowNull: false,
+      allowNull: true,
     },
     paid_amount: {
       type: DataTypes.DECIMAL(12, 2),
-      allowNull: false,
+      allowNull: true,
     },
     paid_date: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
     },
   },
   {
