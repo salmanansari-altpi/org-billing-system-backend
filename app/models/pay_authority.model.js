@@ -4,8 +4,9 @@ import { connection } from "../config/db.js";
 export const pay_authority = connection.define(
     'pay_authority', 
     {
-    payAuthority_id: {
+      payAuthority_id: {
       type: DataTypes.INTEGER(11),
+      autoIncrement:true,
       allowNull: false,
       primaryKey: true
     },
@@ -20,7 +21,7 @@ export const pay_authority = connection.define(
     },
     payAuthority_note: {
       type: DataTypes.BLOB('long'),
-      allowNull: false
+      allowNull: true
     },
     payAuthority_status: {
       type: DataTypes.STRING(2),
@@ -28,7 +29,6 @@ export const pay_authority = connection.define(
     },
     
   },
-
 
 {
 

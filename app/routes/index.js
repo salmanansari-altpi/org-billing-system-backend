@@ -8,10 +8,12 @@ import authRoute from "./Auth/auth.route.js";
 import addNewBiller from "./Billers/getBillerDetails.route.js";
 // Mount route files
 import  customerApi from "./customer/customerApi.route.js";
+import integration from "./integration/integration.route.js";
+
 // router.use("/billFile", uploadBillFile);
 router.use("/agent", agentApi);
 router.use("/auth", authRoute);
 router.use("/billerDetails",addNewBiller)
 router.use("/customer",customerApi);
-
+router.use("/integration",integration);
 export default router;

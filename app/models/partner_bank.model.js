@@ -28,14 +28,7 @@ export const partner_bank = connection.define(
     type: DataTypes.BLOB,
     allowNull: true
   },
-  created_at: {
-    type: DataTypes.DATE,
-
-  },
-  updated_at: {
-    type: DataTypes.DATE,
- 
-  }
+  
 }, 
 {
     // Freeze Table Name
