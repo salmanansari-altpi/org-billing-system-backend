@@ -11,7 +11,7 @@ import  customerApi from "./customer/customerApi.route.js";
 // router.use("/billFile", uploadBillFile);
 router.use("/agent", agentApi);
 router.use("/auth", authRoute);
-router.use("/billerDetails",addNewBiller)
+router.use("/biller",addNewBiller)
 router.use("/customer",customerApi);
 
 export default router;
