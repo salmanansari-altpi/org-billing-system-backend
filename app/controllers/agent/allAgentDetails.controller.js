@@ -1,9 +1,9 @@
 import { models } from "../../models/index.js";
 const { agent_details } = models;
 
-export const allAgentDetails = (req, res) => {
+export const allAgentDetails = async (req, res) => {
   try {
-    const agentDetails = agent_details.findAll({
+    const agentDetails = await agent_details.findAll({
       attributes: ["agent_id", "agent_name", "agent_type"],
     });
     return res

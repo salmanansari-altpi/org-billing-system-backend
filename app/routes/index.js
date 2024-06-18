@@ -13,7 +13,7 @@ import integration from "./integration/integration.route.js";
 // router.use("/billFile", uploadBillFile);
 router.use("/agent", agentApi);
 router.use("/auth", authRoute);
-router.use("/billerDetails",addNewBiller)
+router.use("/biller",addNewBiller)
 router.use("/customer",customerApi);
 router.use("/integration",integration);
 export default router;
