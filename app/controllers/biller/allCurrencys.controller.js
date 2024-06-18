@@ -1,10 +1,10 @@
 import { models } from "../../models/index.js";
 const { currency } = models;
 
-export const allCurrency = (req,res) => {
+export const allCurrency = async (req,res) => {
   try {
-    const currencyDetails = currency.findAll({
-      attributes: ["currency_name", "currency_code"],
+    const currencyDetails = await currency.findAll({
+      attributes: ["currency_iD","currency_name", "currency_code"],
     });
 
     return res

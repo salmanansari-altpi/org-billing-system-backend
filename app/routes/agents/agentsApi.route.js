@@ -1,8 +1,8 @@
 import express from "express";
 const router = express.Router();
 
-import { agentDetails } from "../../controllers/biller/allAgentDetails.controller.js";
+import { allAgentDetails } from "../../controllers/agent/allAgentDetails.controller.js";
 
-router.route("/allagentdetails").get(agentDetails);
+router.route("/allagentdetail").get(allAgentDetails);
 
 export default router;

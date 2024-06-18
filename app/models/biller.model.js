@@ -63,9 +63,13 @@ export const biller = connection.define(
       type: DataTypes.STRING(15),
       allowNull: true,
     },
-    source_of_bill_code: {
+    location_of_bill_file:{
+      type: DataTypes.STRING(30),
+      allowNull: true,
+    },
+    source_of_bill_file: {
       type: DataTypes.STRING(6),
-      allowNull: false,
+      allowNull: true,
     },
     bill_freq_id:{
       type: DataTypes.INTEGER(6),
@@ -74,6 +78,14 @@ export const biller = connection.define(
     agent_id:{
        type:DataTypes.INTEGER(6),
        allowNull:false,
+    },
+    bill_currency_id:{
+      type:DataTypes.INTEGER(6),
+      allowNull:true
+    },
+    billing_plan_type_id:{
+      type:DataTypes.INTEGER(3)
+
     },
     logo_image: {
       type: DataTypes.BLOB("long"),
@@ -95,10 +107,7 @@ export const biller = connection.define(
       type: DataTypes.STRING(1),
       allowNull: true,
     },
-    bill_amount_id:{
-      type:DataTypes.INTEGER(6),
-      allowNull:true
-    },
+    
     created_at: {
       type: DataTypes.DATE,
       allowNull: false,
