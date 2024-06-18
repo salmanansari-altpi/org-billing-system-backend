@@ -63,9 +63,13 @@ export const biller = connection.define(
       type: DataTypes.STRING(15),
       allowNull: true,
     },
-    source_of_bill_code: {
+    location_of_bill_file:{
+      type: DataTypes.STRING(30),
+      allowNull: true,
+    },
+    source_of_bill_file: {
       type: DataTypes.STRING(6),
-      allowNull: false,
+      allowNull: true,
     },
     bill_freq_id:{
       type: DataTypes.INTEGER(6),

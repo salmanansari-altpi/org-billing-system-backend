@@ -48,6 +48,9 @@ upload(req, res, async(err)=>{
             reading_date:d.reading_date,
             
           })
+          return res.status(200).json({
+            sucess: true,
+          })
           
          } catch (error) {
           return res.status(500).send(`Error uploading the file.${error}`);

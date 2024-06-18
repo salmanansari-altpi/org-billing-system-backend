@@ -29,18 +29,28 @@ export const addNewBiller =async (req,res)=>{
         const sourceOfBill = await source_of_bill.findOne({where:{source_of_bill_code}});
         const amountType = await currency.findOne({where:{currency_code}});
         const billFrequency = await biller_frequency.findOne({where:{frequency_code}});
-        const agentId = await agent_details.findOne({where:{agent_id}});
+        let agentId ;
+if(agent_id){
+     agentId = await agent_details.findOne({where:{agent_id}});
+}
+
+if(!billCategory || !country_id || ! billPlan || !sourceOfBill || !amountType || !billFrequency){
+    return res
+    .status(404)
+    .json({ success: false, message: "Invalid data", data: null });
+}
 // -------------------- create new table 
 
        await  biller.create({
             biller_code,
             biller_name,
-            biller_category:billCategory.customer_type,
+            biller_category:billCategory.id,
             country_id:country_id.country_id,
-            source_of_bill_code:sourceOfBill.source_of_bill_code,
-            bill_amount_id:amountType.bill_amount_id,
+            source_of_bill_file:sourceOfBill.source_of_bill_id,
+            bill_currency_id:amountType.bill_amount_id,
             bill_freq_id:billFrequency.bill_freq_id,
-            agent_id:agentId.agent_id,
+            agent_id:agentId?.agent_id,
+            billing_plan_type_id:billPlan.billing_plan_type_id,
             
             
         });
@@ -50,5 +60,8 @@ export const addNewBiller =async (req,res)=>{
         
     } catch (error) {
         console.log(error.message);
+        return res
+        .status(404)
+        .json({ success: false, message: "internal error", data: null });
     }
 }
