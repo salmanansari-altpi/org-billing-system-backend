@@ -30,8 +30,8 @@ export const addNewBiller =async (req,res)=>{
             country_id:country_id.country_id,
             source_of_bill_code:sourceOfBill.source_of_bill_code,
             bill_amount_id:amountType.bill_amount_id,
-            bill_freq_id:billFrequency.bill_freq_id,
-            agent_id:agentId.agent_id,
+            // bill_freq_id:billFrequency.bill_freq_id,
+            // agent_id:agentId.agent_id,
              upi_trailer,
             
         });
