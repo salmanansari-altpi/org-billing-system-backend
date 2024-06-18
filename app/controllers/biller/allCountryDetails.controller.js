@@ -1,10 +1,10 @@
 import { models } from "../../models/index.js";
 const { country } = models;
 
-export const countryDetails = (req, res) => {
+export const countryDetails = async (req, res) => {
   try {
-    const countryDetails = country.findAll({
-      attributes: ["country_name", "currency_code"],
+    const countryDetails = await country.findAll({
+      attributes: ["country_id","country_name", "currency_code"],
     });
 
     return res.status(200).json({

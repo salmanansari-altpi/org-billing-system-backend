@@ -30,6 +30,7 @@ import { pay_authority } from "./pay_authority.model.js";
 import { payment_methods } from "./payment_methods.model.js";
 import { payment_txn } from "./payment_txn.model.js";
 import { agent_details } from "./agent_details.model.js";
+import { billing_plan_type } from "./billing_plan_type.model.js";
 
 export const models = {
   agent_biller_details,
@@ -69,6 +70,7 @@ export const models = {
   pay_authority,
   payment_methods,
   payment_txn,
+  billing_plan_type
 };
 
 //Dictates whether tables are modified or not;
