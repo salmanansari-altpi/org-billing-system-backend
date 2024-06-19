@@ -2,7 +2,7 @@ import { where } from "sequelize";
 import { models } from "../../models/index.js";
 // import { raw } from "body-parser";
 
-const { customer_biller_cref, biller, biller_bills } = models;
+const { customer, customer_biller_cref, biller, biller_bills } = models;
 
 export const getCustomerBills = async (req, res) => {
   try {
@@ -73,6 +73,7 @@ export const generateQrforBill = async (req, res) => {
     where: { cust_mobile_no: id },
   });
   const findBiller = await biller.findOne({
+    raw: true,
     where: { biller_code: biller_code },
   });
   if (!findBiller_customer || !findBiller) {
@@ -80,7 +81,8 @@ export const generateQrforBill = async (req, res) => {
       .status(500)
       .json({ success: false, message: "Something Went Wrong!" });
   }
-  const findamount = await biller_bills.findOne({
+  const { biller_bill_amount } = await biller_bills.findOne({
+    raw: true,
     where: {
       biller_id: findBiller.biller_id,
       biller_customer_account_no: biller_customer_account_no,
@@ -88,7 +90,7 @@ export const generateQrforBill = async (req, res) => {
     attributes: ["biller_bill_amount"],
   });
 
-  const intent = `upi://pay?tr=&tid=&pa=&mc=1234&pn=${findBiller.biller_name}&am=${findamount}&cu=&tn=Pay%20for%20merchant`;
+  const intent = `upi://pay?tr=&tid=&pa=&mc=1234&pn=${findBiller.biller_name}&am=${biller_bill_amount}&cu=&tn=Pay%20for%20merchant`;
   // biller id
   return res.status(200).json({
     success: true,

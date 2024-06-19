@@ -22,6 +22,6 @@ router
   .route("/billerValidate")
   .get(getBillersByCategory)
   .post(verifyOTPToken, saveCrefAndValidate);
-router.route("/generateQR").post(generateQrforBill);
+router.route("/generateQR").post(verifyOTPToken, generateQrforBill);
 
 export default router;
