@@ -83,14 +83,13 @@ export const customerSignIn = async (req, res) => {
     const userExist = await customer.findOne({
       where: { cust_mobile_no: mobileNo, cust_password: password },
     });
-    console.log(userExist);
     if (!userExist) {
       return res
         .status(404)
         .json({ success: false, message: "Invalid mobile or password!" });
     }
 
-    const token = jwt.sign({ mobileNo }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ id: mobileNo }, process.env.JWT_SECRET, {
       expiresIn: "10d",
     });
     res.status(200).json({ success: true, token });
