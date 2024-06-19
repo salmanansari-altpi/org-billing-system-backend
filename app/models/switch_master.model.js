@@ -24,20 +24,13 @@ export const switch_master = connection.define(
     },
     switch_note: {
       type: DataTypes.BLOB("long"),
-      allowNull: false,
+      allowNull: true,
     },
-    createdAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
-    updatedAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
+  
   },
   {
     // Freeze Table Name
     freezeTableName: true,
-    timestamps: false,
+    timestamps: true,
   }
 );
