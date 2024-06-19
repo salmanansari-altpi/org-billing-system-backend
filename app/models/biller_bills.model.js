@@ -84,9 +84,10 @@ export const biller_bills = connection.define(
       type: DataTypes.DATE,
       allowNull: true,
     },
+  
   },
   {
-    timestamps: false, // If you want Sequelize to manage createdAt and updatedAt fields, set this to true
+    timestamps: true, // If you want Sequelize to manage createdAt and updatedAt fields, set this to true
     freezeTableName: true,
     
   }
