@@ -20,7 +20,7 @@ export const biller_category_master = connection.define(
     },
     notes: {
       type: DataTypes.BLOB("medium"),
-      allowNull: false,
+      allowNull: true,
     },
     createdAt: {
       type: DataTypes.DATE,

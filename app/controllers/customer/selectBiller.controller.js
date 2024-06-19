@@ -7,6 +7,7 @@ import { customer } from "../../models/customer.model.js";
 export const getBillersByCategory = async(req, res) =>{
    try {
     const {category} = req.query;
+    console.log(category,"...........");
     const billers = await biller.findAll({where:{biller_category:category},attributes:["biller_name","biller_code"]});
     return res.json({ success: true, data: billers })
    } catch (error) {
