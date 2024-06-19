@@ -54,7 +54,7 @@ export const saveCrefAndValidate = async(req, res)=>{
     // save as cross ref 
  
     await customer_biller_cref.create({
-        customer_id:id,
+        customer_id:findBiller_customer.customer_id,
         biller_id:findBiller.biller_id,
         biller_customer_account_no:biller_customer_account_no
     })
