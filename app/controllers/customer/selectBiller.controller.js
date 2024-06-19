@@ -71,17 +71,19 @@ export const saveCrefAndValidate = async (req, res) => {
         .status(500)
         .json({ success: false, message: "Customer Account No Went Wrong!" });
     }
+    // save as cross ref
+    const finduserref = await customer_biller_cref.findOne({where:{customer_id: findBiller_customer.customer_id,
+      biller_id: findBiller.biller_id,
+      biller_customer_account_no: biller_customer_account_no,}})
+      if(!finduserref){
 
-    // save as cross ref 
- 
-    await customer_biller_cref.create({
-        customer_id:id,
-        biller_id:findBiller.biller_id,
-        biller_customer_account_no:biller_customer_account_no
-    })
-    return res.json({ success: true, data: findBiler_bills })
-
-    
+        await customer_biller_cref.create({
+          customer_id: findBiller_customer.customer_id,
+          biller_id: findBiller.biller_id,
+          biller_customer_account_no: biller_customer_account_no,
+        });
+      }
+    return res.json({ success: true, data: findBiler_bills });
   } catch (error) {
     return res.status(500).json({ success: false, message: error.message });
   }
