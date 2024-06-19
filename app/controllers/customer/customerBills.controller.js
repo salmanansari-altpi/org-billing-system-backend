@@ -1,64 +1,78 @@
 import { where } from "sequelize";
 import { models } from "../../models/index.js";
+// const { customer } = models;
 // import { raw } from "body-parser";
 
-const { customer_biller_cref, biller, biller_bills } = models;
+const { customer_biller_cref, biller, biller_bills ,customer} = models;
 
 export const getCustomerBills = async (req, res) => {
   try {
     const { id } = req.user;
+
+    const customers = await customer.findOne({ where: { cust_mobile_no: id } });
+  
+
+    if (!customers) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Customer not found!" });
+    }
+
     const custBills = await customer_biller_cref.findAll({
       raw: true,
-      customer_id: id,
+      where: { customer_id: customers.customer_id },
     });
 
-    if (!custBills) {
+    if (!custBills.length) {
       return res
         .status(404)
         .json({ success: false, message: "No bills found!" });
     }
 
+
     let billerData = [];
-    // billsData = [];
-    const billers = custBills.map(async (cust) => {
-      billerData.push(
-        await biller.findAll({
-          raw: true,
-          attributes: ["biller_code", "biller_name", "biller_category"],
-          where: { biller_id: cust.biller_id },
-        }),
-        await biller_bills.findAll({
-          raw: true,
-          attributes: [
-            "biller_code",
-            "biller_customer_account_no",
-            "biller_bill_no",
-            "biller_bill_date",
-            "biller_bill_amount",
-            "biller_other_charges",
-            "biller_taxes",
-            "biller_pending_due",
-            "biller_total_amount_due",
-            "last_meter_reading",
-            "current_meter_reading",
-            "units_consumed",
-            "reading_date",
-          ],
-          where: {
-            biller_customer_account_no: cust.biller_customer_account_no,
-          },
-        })
-      );
+    for (const cust of custBills) {
+      const billerInfo = await biller.findOne({
+        raw: true,
+        attributes: ["biller_code", "biller_name", "biller_category"],
+        where: { biller_id: cust.biller_id },
+      });
 
-      return [...billerData];
-    });
+      const billerBills = await biller_bills.findAll({
+        raw: true,
+        attributes: [
+          "biller_code",
+          "biller_customer_account_no",
+          "biller_bill_no",
+          "biller_bill_date",
+          "biller_bill_amount",
+          "biller_other_charges",
+          "biller_taxes",
+          "biller_pending_due",
+          "biller_total_amount_due",
+          "last_meter_reading",
+          "current_meter_reading",
+          "units_consumed",
+          "reading_date",
+        ],
+        where: { biller_customer_account_no: cust.biller_customer_account_no },
+      });
 
-    await Promise.all(biller);
-    res.status(200).json({ success: true, data: billers });
+      if (billerInfo && billerBills.length) {
+        billerData.push({
+          billerInfo,
+          bills: billerBills,
+        });
+      }
+    }
+
+    res.status(200).json({ success: true, data: billerData });
   } catch (err) {
-    res.status(500).json({ success: false, message: "Something Went Wrong!" });
+   
+    res.status(500).json({ success: false, message: err });
   }
 };
+
 
 export const generateQrforBill = async (req, res) => {
   const { id } = req.user;
@@ -87,6 +101,7 @@ export const generateQrforBill = async (req, res) => {
     },
     attributes: ["biller_bill_amount"],
   });
+  
 
   const intent = `upi://pay?tr=&tid=&pa=&mc=1234&pn=${findBiller.biller_name}&am=${findamount}&cu=&tn=Pay%20for%20merchant`;
   // biller id
