@@ -78,13 +78,12 @@ export const models = {
 const flag = false;
 
 const flag2 = false; //! ARE YOU SURE?
-const force  = false ; // it may delete your data  don't do that at production
 
 const syncAllTables = async (models) => {
   if (flag) {
     try {
       for (const [modelName, model] of Object.entries(models)) {
-        await model.sync({ alter: flag2});
+        await model.sync({ alter: flag2 });
         console.log(`Table ${modelName} synchronized successfully!`);
       }
       console.log("Models altered and synchronized!");
