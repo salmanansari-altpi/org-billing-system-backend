@@ -73,11 +73,11 @@ export const biller = connection.define(
     },
     bill_freq_id:{
       type: DataTypes.INTEGER(6),
-      allowNull:false,
+      allowNull:true,
     },
     agent_id:{
        type:DataTypes.INTEGER(6),
-       allowNull:false,
+       allowNull:true,
     },
     bill_currency_id:{
       type:DataTypes.INTEGER(6),
@@ -108,17 +108,9 @@ export const biller = connection.define(
       allowNull: true,
     },
     
-    created_at: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
-    updated_at: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
   },
   {
-    timestamps: false,
+    timestamps: true,
     freezeTableName: true,
   }
 );
