@@ -11,24 +11,24 @@ export const role_master = connection.define(
     },
     user_type: {
       type: DataTypes.STRING(6),
-      allowNull: false,
+      allowNull: true,
     },
     role: {
       type: DataTypes.STRING(45),
-      allowNull: false,
+      allowNull: true,
     },
     createdAt: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
     },
     updatedAt: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
     },
   },
   {
     // Freeze Table Name
     freezeTableName: true,
-    timestamps: false,
+    timestamps: true,
   }
 );

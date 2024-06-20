@@ -8,15 +8,15 @@ export const biller_category_master = connection.define(
       type: DataTypes.INTEGER(11),
       autoIncrement: true,
       primaryKey: true,
-      allowNull: false,
+      allowNull: true,
     },
     customer_type: {
       type: DataTypes.STRING(6),
-      allowNull: false,
+      allowNull: true,
     },
     description: {
       type: DataTypes.STRING(45),
-      allowNull: false,
+      allowNull: true,
     },
     notes: {
       type: DataTypes.BLOB("medium"),
@@ -24,12 +24,12 @@ export const biller_category_master = connection.define(
     },
     createdAt: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
       defaultValue: DataTypes.NOW,
     },
     updatedAt: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
       defaultValue: DataTypes.NOW,
     },
   },

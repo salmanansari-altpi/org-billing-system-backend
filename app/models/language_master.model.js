@@ -6,31 +6,31 @@ export const language_master = connection.define(
     {
     id: {
       type: DataTypes.INTEGER(11),
-      allowNull: false,
+      allowNull: true,
       autoIncrement: true,
       primaryKey: true
     },
     biller_code: {
       type: DataTypes.STRING(6),
-      allowNull: false
+      allowNull: true
     },
     application_id: {
       type: DataTypes.INTEGER(11),
-      allowNull: false
+      allowNull: true
     },
     language_code: {
       type: DataTypes.STRING(3),
-      allowNull: false
+      allowNull: true
     },
     language_description: {
       type: DataTypes.STRING(20),
-      allowNull: false
+      allowNull: true
     }
   },
   {
     // Freeze Table Name
     freezeTableName: true,
-    timestamps:false
+    timestamps:true
   }
 ); 
   

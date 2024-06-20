@@ -8,7 +8,7 @@ export const customer = connection.define(
       type: DataTypes.INTEGER(6),
       autoIncrement: true,
       primaryKey: true,
-      allowNull: false,
+      allowNull: true,
     },
     app_ref_sr_no: {
       type: DataTypes.INTEGER(8),
@@ -20,7 +20,7 @@ export const customer = connection.define(
     },
     cust_password: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     cust_mobile_no: {
       type: DataTypes.STRING(30),

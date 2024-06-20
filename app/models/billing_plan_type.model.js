@@ -8,21 +8,21 @@ export const billing_plan_type = connection.define(
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
-      allowNull: false,
+      allowNull: true,
     },
     billing_plan_type_code: {
       type: DataTypes.STRING(6),
-      allowNull: false,
+      allowNull: true,
       unique: true,
     },
     billing_plan_type_description: {
       type: DataTypes.STRING(20),
-      allowNull: false,
+      allowNull: true,
     },
   },
   {
     freezeTableName: true,
-    timestamps: false,
+    timestamps: true,
    
   }
 );

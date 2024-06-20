@@ -8,20 +8,20 @@ export const customer_biller_cref = connection.define(
       type: DataTypes.INTEGER(8),
       autoIncrement: true,
       primaryKey: true,
-      allowNull: false,
+      allowNull: true,
     },
     customer_id: {
       type: DataTypes.INTEGER(6),
-      allowNull: false,
+      allowNull: true,
     },
     biller_id: {
       unique:true,
       type: DataTypes.INTEGER(6),
-      allowNull: false,
+      allowNull: true,
     },
     biller_customer_account_no: 
     { type: DataTypes.STRING(20), 
-      allowNull: false },
+      allowNull: true },
 
   },
   {

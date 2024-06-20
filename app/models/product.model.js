@@ -6,7 +6,7 @@ export const product = connection.define(
   {
     Product_Id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       primaryKey: true,
     },
     Product_Code: {
@@ -20,7 +20,7 @@ export const product = connection.define(
     },
     Product_Note: {
       type: DataTypes.BLOB('long'),
-      allowNull: false,
+      allowNull: true,
     },
     Product_Status: {
       type: DataTypes.STRING(2),
@@ -28,12 +28,12 @@ export const product = connection.define(
     },
     createdAt: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
       defaultValue: DataTypes.NOW,
     },
     updatedAt: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
       defaultValue: DataTypes.NOW,
     },
   },
