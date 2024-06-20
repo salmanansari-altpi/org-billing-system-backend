@@ -7,6 +7,7 @@ import session from "express-session";
 import path from "path";
 
 export const otps = [];
+export const veriedMobileNos = [];
 
 dotenv.config();
 const app = express();
@@ -32,6 +33,7 @@ app.use(cors(corsOptions));
 
 // Import routes from the index.js file inside the routes folder
 import routes from "./app/routes/index.js";
+import exp from "constants";
 
 // Mount routes defined in the routes/index.js file
 app.use("/", routes);
