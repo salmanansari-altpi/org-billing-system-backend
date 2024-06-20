@@ -27,7 +27,7 @@ export const biller_contact = connection.define(
       allowNull: true,
     },
     state: {
-      type: DataTypes.INTEGER(11),
+      type: DataTypes.STRING(50),
       allowNull: true,
     },
     pin: {
