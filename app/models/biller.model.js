@@ -11,7 +11,7 @@ export const biller = connection.define(
       allowNull: false,
     },
     biller_code: {
-      type: DataTypes.STRING(6),
+      type: DataTypes.STRING(18),
       allowNull: false,
       unique: true,
     },
@@ -106,6 +106,7 @@ export const biller = connection.define(
       type: DataTypes.STRING(1),
       allowNull: true,
     },
+    
   },
   {
     timestamps: true,
