@@ -45,6 +45,6 @@ export const registration_log_out = connection.define(
   {
     // Freeze Table Name
     freezeTableName: true,
-    timestamps: false,
+    timestamps: true,
   }
 );

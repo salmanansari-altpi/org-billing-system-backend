@@ -9,39 +9,39 @@ export const user_access = connection.define('user_access', {
     },
     party_code: {
         type: DataTypes.STRING(6),
-        allowNull: false
+        allowNull: true
     },
     party_type: {
         type: DataTypes.STRING(4),
-        allowNull: false
+        allowNull: true
     },
     user_type: {
         type: DataTypes.STRING(6),
-        allowNull: false
+        allowNull: true
     },
     role: {
         type: DataTypes.STRING(45),
-        allowNull: false
+        allowNull: true
     },
     access_code: {
         type: DataTypes.STRING(45),
-        allowNull: false
+        allowNull: true
     },
     parental_access: {
         type: DataTypes.STRING(45),
-        allowNull: false
+        allowNull: true
     },
     principal_access: {
         type: DataTypes.STRING(45),
-        allowNull: false
+        allowNull: true
     },
     no_of_nodes: {
         type: DataTypes.STRING(45),
-        allowNull: false
+        allowNull: true
     },
     api_name: {
         type: DataTypes.STRING(45),
-        allowNull: false
+        allowNull: true
     },
     param1: {
         type: DataTypes.STRING(45),
@@ -65,14 +65,14 @@ export const user_access = connection.define('user_access', {
     },
     created_at: {
         type: DataTypes.DATE,
-        allowNull: false
+        allowNull: true
     },
     updated_at: {
         type: DataTypes.DATE,
-        allowNull: false
+        allowNull: true
     }
 }, {
     // Freeze Table Name
     freezeTableName: true,
-    timestamps: false,
+    timestamps: true,
 });

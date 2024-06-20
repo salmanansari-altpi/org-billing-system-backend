@@ -17,7 +17,7 @@ export const onBoardCustomer = async (req, res) => {
     if (!email || !password || !firstName || !lastName || !mobileNo) {
       return res
         .status(400)
-        .json({ success: false, message: "All Fields are Mandatory!" });
+        .json({ success: true, message: "All Fields are Mandatory!" });
     }
     const data = await customer.create({
       app_ref_sr_no: appRefSrNo,
@@ -35,7 +35,7 @@ export const onBoardCustomer = async (req, res) => {
       .json({ success: true, message: "User onboarded successfully!" });
   } catch (err) {
     console.log("Error while onBoarding Customer:- ", err);
-    res.status(500).json({ success: false, message: "Something Went Wrong!" });
+    res.status(500).json({ success: true, message: "Something Went Wrong!" });
   }
 };
 
@@ -45,7 +45,7 @@ export const customerSignIn = async (req, res) => {
     if (!mobileNo || !password) {
       return res
         .status(400)
-        .json({ success: false, message: "All fields are mandatory!" });
+        .json({ success: true, message: "All fields are mandatory!" });
     }
 
     const userExist = await customer.findOne({
@@ -54,7 +54,7 @@ export const customerSignIn = async (req, res) => {
     if (!userExist) {
       return res
         .status(404)
-        .json({ success: false, message: "Invalid mobile or password!" });
+        .json({ success: true, message: "Invalid mobile or password!" });
     }
 
     const token = jwt.sign({ mobileNo }, process.env.JWT_SECRET, {
@@ -62,6 +62,6 @@ export const customerSignIn = async (req, res) => {
     });
     res.status(200).json({ success: true, token });
   } catch (err) {
-    res.status(500).json({ success: false, message: "Something Went Wrong!" });
+    res.status(500).json({ success: true, message: "Something Went Wrong!" });
   }
 };

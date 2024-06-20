@@ -8,15 +8,15 @@ export  const biller_frequency=connection.define(
         type: DataTypes.INTEGER(2),
         autoIncrement: true,
         primaryKey: true,
-        allowNull: false,
+        allowNull: true,
     },
     frequency_code:{
         type:DataTypes.STRING(6),
-        allowNull:false,
+        allowNull:true,
     },
     frequency_description:{
         type:DataTypes.STRING(20),
-        allowNull:false,
+        allowNull:true,
     }
 }
 )

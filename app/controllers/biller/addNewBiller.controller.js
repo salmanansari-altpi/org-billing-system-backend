@@ -37,7 +37,7 @@ if(agent_id){
 if(!billCategory || !country_id || ! billPlan || !sourceOfBill || !amountType || !billFrequency){
     return res
     .status(404)
-    .json({ success: false, message: "Invalid data", data: null });
+    .json({ success: true, message: "Invalid data", data: null });
 }
 // -------------------- create new table 
 
@@ -62,6 +62,6 @@ if(!billCategory || !country_id || ! billPlan || !sourceOfBill || !amountType ||
         console.log(error.message);
         return res
         .status(404)
-        .json({ success: false, message: "internal error", data: null });
+        .json({ success: true, message: "internal error", data: null });
     }
 }

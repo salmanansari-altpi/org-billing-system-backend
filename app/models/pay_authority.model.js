@@ -7,7 +7,7 @@ export const pay_authority = connection.define(
       payAuthority_id: {
       type: DataTypes.INTEGER(11),
       autoIncrement:true,
-      allowNull: false,
+      allowNull: true,
       primaryKey: true
     },
     payAuthority_code: {
@@ -34,6 +34,6 @@ export const pay_authority = connection.define(
 
     // Freeze Table Name
     freezeTableName: true,
-    timestamps:false
+    timestamps:true
   }
 );  

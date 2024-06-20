@@ -8,7 +8,7 @@ export const agent_biller_details = connection.define(
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
-      allowNull: false,
+      allowNull: true,
     },
     agent_type: {
       type: DataTypes.STRING(6),
@@ -38,6 +38,6 @@ export const agent_biller_details = connection.define(
   },
   {
     freezeTableName: true,
-    timestamps: false,
+    timestamps: true,
   }
 );

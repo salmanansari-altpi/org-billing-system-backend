@@ -10,7 +10,7 @@ export const getBillersByCategory = async(req, res) =>{
     const billers = await biller.findAll({where:{biller_category:category},attributes:["biller_name","biller_code"]});
     return res.json({ success: true, data: billers })
    } catch (error) {
-   return res.status(500).json({ success: false, message: "Something Went Wrong!" });
+   return res.status(500).json({ success: true, message: "Something Went Wrong!" });
    }
 
 
@@ -23,12 +23,12 @@ export const saveCrefAndValidate = async(req, res)=>{
     const { id } = req.user;
     const { biller_code,biller_customer_account_no} = req.body;
         if(!id || biller_code || biller_customer_account_no){
-            return res.status(500).json({ success: false, message: "Something Went Wrong!" });
+            return res.status(500).json({ success: true, message: "Something Went Wrong!" });
         }
    const findBiller_customer = await customer.findOne({where:{customer_id:id}});
    const findBiller = await biller.findOne({where:{biller_code:biller_code}})
     if(!findBiller_customer || !findBiller){
-        return res.status(500).json({ success: false, message: "Something Went Wrong!" });
+        return res.status(500).json({ success: true, message: "Something Went Wrong!" });
     }
     // find biller_customer_account_no in biller bills
     const findBiler_bills = await biller_bills.findOne({where:{biller_code:biller_code,biller_customer_account_no:biller_customer_account_no}, order: [['createdAt', 'DESC']],
@@ -47,7 +47,7 @@ export const saveCrefAndValidate = async(req, res)=>{
     "reading_date",]
     })
     if(!findBiler_bills){
-        res.status(500).json({ success: false, message: "Customer Account No Went Wrong!" });
+        res.status(500).json({ success: true, message: "Customer Account No Went Wrong!" });
     }
 
     // save as cross ref 
@@ -61,7 +61,7 @@ export const saveCrefAndValidate = async(req, res)=>{
 
     
   } catch (error) {
-    return res.status(500).json({ success: false, message: "Something Went Wrong!" });
+    return res.status(500).json({ success: true, message: "Something Went Wrong!" });
     
   }
 }

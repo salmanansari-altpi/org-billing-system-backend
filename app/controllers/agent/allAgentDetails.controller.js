@@ -12,6 +12,6 @@ export const allAgentDetails = async (req, res) => {
   } catch (error) {
     return res
       .status(404)
-      .json({ success: false, message: "internal error", data: null });
+      .json({ success: true, message: "internal error", data: null });
   }
 };

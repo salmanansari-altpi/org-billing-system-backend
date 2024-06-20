@@ -15,7 +15,7 @@ export const getCustomerBills = async (req, res) => {
     if (!custBills) {
       return res
         .status(404)
-        .json({ success: false, message: "No bills found!" });
+        .json({ success: true, message: "No bills found!" });
     }
 
     let billerData = [];
@@ -57,7 +57,7 @@ export const getCustomerBills = async (req, res) => {
     await Promise.all(biller);
     res.status(200).json({ success: true, data: billers });
   } catch (err) {
-    res.status(500).json({ success: false, message: "Something Went Wrong!" });
+    res.status(500).json({ success: true, message: "Something Went Wrong!" });
   }
 };
 
@@ -65,13 +65,13 @@ export const generateQrforBill = async(req, res)=>{
   const { id } = req.user;
   const{biller_code,biller_customer_account_no,biller_bill_no} = req.body;
   if(!id || biller_code || biller_customer_account_no){
-    return res.status(500).json({ success: false, message: "Something Went Wrong!" });
+    return res.status(500).json({ success: true, message: "Something Went Wrong!" });
 }
 
 const findBiller_customer = await customer.findOne({where:{customer_id:id}});
    const findBiller = await biller.findOne({where:{biller_code:biller_code}})
     if(!findBiller_customer || !findBiller){
-        return res.status(500).json({ success: false, message: "Something Went Wrong!" });
+        return res.status(500).json({ success: true, message: "Something Went Wrong!" });
     }
     const findamount = await biller_bills.findOne({
       where:{

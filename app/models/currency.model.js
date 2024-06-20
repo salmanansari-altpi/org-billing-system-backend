@@ -8,7 +8,7 @@ export const currency = connection.define(
       type: DataTypes.INTEGER(11),
       autoIncrement: true,
       primaryKey: true,
-      allowNull: false,
+      allowNull: true,
     },
     currency_name: {
       type: DataTypes.STRING(50),

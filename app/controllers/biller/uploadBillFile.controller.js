@@ -1,20 +1,49 @@
 
 import { models } from '../../models/index.js';
 
-const { billerDetails } = models;
+const { billerDetails ,biller_bills} = models;
 import multer from "multer";
 import XLSX from "xlsx";
 import csv from "csv-parser";
 import { parseString } from "xml2js";
-import { biller_bills } from '../../models/Biller_Bills.model.js';
 import path from 'path';
 import fs from 'fs';
+import cron from 'node-cron';
 
 const storage = multer.memoryStorage();
-const upload = multer({ storage: storage }).single('file')
-export const uploadBillFile =  async (req, res) => {
-   
-        
+const upload = multer({ storage: storage }).single('file');
+
+
+/* please check upload biller file and store it with the sequence and delete it after 3 months  */
+
+const ensureUniqueFilename = (directory, filename) => {
+  let ext = path.extname(filename);
+  let base = path.basename(filename, ext);
+  let newFilename = filename;
+  let counter = 1;
+
+  while (fs.existsSync(path.join(directory, newFilename))) {
+    newFilename = `${base}${counter}${ext}`;
+    counter++;
+  }
+
+  return newFilename;
+};
+
+/* Set up a cron job to delete old files After3days */
+
+const deleteFileAfter3days = (filePath) => {
+  setTimeout(() => {
+    if (fs.existsSync(filePath)) {
+      fs.unlinkSync(filePath);
+      console.log(`Deleted file: ${filePath}`);
+    }
+  },  3*24*60*60 * 1000); // 3days
+};
+
+/********************************************************************************************************** */
+
+export const uploadBillFile =  async (req, res) => {       
 upload(req, res, async(err)=>{
 
     if (err) {
@@ -22,7 +51,8 @@ upload(req, res, async(err)=>{
       }
       try {
         const{ billerCode }= req.body;
-        const filePath = path.join("upload", `${billerCode}.xlsx`);
+        const newDate = new Date().toDateString();
+        const filePath = path.join("upload", `${billerCode}${newDate}.xlsx`);
         fs.writeFileSync(filePath, req.file.buffer);
         const workbook = XLSX.read(req.file.buffer, { type: 'buffer' });
         const sheetNameList = workbook.SheetNames;
@@ -53,10 +83,12 @@ upload(req, res, async(err)=>{
           })
           
          } catch (error) {
-          return res.status(500).send(`Error uploading the file.${error}`);
+          console.error(`Error saving bill data for ${d.biller_id}:`, error);
+          return res.status(500).send(`Error uploading the file.${error.message}`);
          }
          
-        })
+        } )
+        deleteFileAfter3days(filePath);
      
       //  return res.json(jsonData);
       } catch (error) {

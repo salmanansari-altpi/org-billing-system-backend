@@ -7,7 +7,7 @@ export const partner_bank = connection.define(
     {
   partner_bank_id: {
     type: DataTypes.INTEGER(6),
-    allowNull: false,
+    allowNull: true,
     autoIncrement: true,
     primaryKey: true
   },

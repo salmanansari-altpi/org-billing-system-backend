@@ -8,11 +8,11 @@ export const biller = connection.define(
       type: DataTypes.INTEGER(11),
       autoIncrement: true,
       primaryKey: true,
-      allowNull: false,
+      allowNull: true,
     },
     biller_code: {
       type: DataTypes.STRING(6),
-      allowNull: false,
+      allowNull: true,
       unique: true,
     },
     biller_status: {
@@ -25,7 +25,7 @@ export const biller = connection.define(
     },
     biller_category: {
       type: DataTypes.STRING(6),
-      allowNull: false,
+      allowNull: true,
     },
     country_id: {
       type: DataTypes.INTEGER(11),
@@ -73,11 +73,11 @@ export const biller = connection.define(
     },
     bill_freq_id:{
       type: DataTypes.INTEGER(6),
-      allowNull:false,
+      allowNull:true,
     },
     agent_id:{
        type:DataTypes.INTEGER(6),
-       allowNull:false,
+       allowNull:true,
     },
     bill_currency_id:{
       type:DataTypes.INTEGER(6),
@@ -110,15 +110,15 @@ export const biller = connection.define(
     
     created_at: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
     },
     updated_at: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
     },
   },
   {
-    timestamps: false,
+    timestamps: true,
     freezeTableName: true,
   }
 );

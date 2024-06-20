@@ -13,7 +13,7 @@ const app = express();
 app.use(express.json());
 app.use(bodyParser.json({ limit: "330mb", extended: true }));
 app.use(
-  session({ secret: "khuljasimsim", resave: false, saveUninitialized: false })
+  session({ secret: "khuljasimsim", resave: true, saveUninitialized: true })
 );
 
 app.use(
