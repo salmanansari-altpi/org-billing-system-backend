@@ -70,7 +70,7 @@ export const models = {
   pay_authority,
   payment_methods,
   payment_txn,
-  billing_plan_type
+  billing_plan_type,
 };
 
 //Dictates whether tables are modified or not;

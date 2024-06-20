@@ -16,7 +16,7 @@ export  const biller_frequency=connection.define(
     },
     frequency_description:{
         type:DataTypes.STRING(20),
-        allowNull:true,
+        allowNull:true
     }
 }
 )

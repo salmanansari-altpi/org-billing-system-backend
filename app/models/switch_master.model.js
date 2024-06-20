@@ -26,14 +26,7 @@ export const switch_master = connection.define(
       type: DataTypes.BLOB("long"),
       allowNull: true,
     },
-    createdAt: {
-      type: DataTypes.DATE,
-      allowNull: true,
-    },
-    updatedAt: {
-      type: DataTypes.DATE,
-      allowNull: true,
-    },
+  
   },
   {
     // Freeze Table Name

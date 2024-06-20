@@ -28,7 +28,6 @@ export const partner_bank = connection.define(
     type: DataTypes.BLOB,
     allowNull: true
   },
-  
 }, 
 {
     // Freeze Table Name
