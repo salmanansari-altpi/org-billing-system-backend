@@ -1,16 +1,14 @@
 import { where } from "sequelize";
 import { models } from "../../models/index.js";
-// const { customer } = models;
 // import { raw } from "body-parser";
 
-const { customer, customer_biller_cref, biller, biller_bills} = models;
+const { customer, customer_biller_cref, biller, biller_bills } = models;
 
 export const getCustomerBills = async (req, res) => {
   try {
     const { id } = req.user;
 
     const customers = await customer.findOne({ where: { cust_mobile_no: id } });
-  
 
     if (!customers) {
       return res
@@ -28,7 +26,6 @@ export const getCustomerBills = async (req, res) => {
         .status(404)
         .json({ success: false, message: "No bills found!" });
     }
-
 
     let billerData = [];
     for (const cust of custBills) {
@@ -68,11 +65,9 @@ export const getCustomerBills = async (req, res) => {
 
     res.status(200).json({ success: true, data: billerData });
   } catch (err) {
-   
     res.status(500).json({ success: false, message: err });
   }
 };
-
 
 export const generateQrforBill = async (req, res) => {
   const { id } = req.user;

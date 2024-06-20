@@ -24,7 +24,6 @@ export const saveCrefAndValidate = async (req, res) => {
   try {
     const { id } = req.user;
     const { biller_code, biller_customer_account_no } = req.body;
-    console.log(req.body);
     if (!biller_code || !biller_customer_account_no) {
       return res
         .status(400)
@@ -34,10 +33,11 @@ export const saveCrefAndValidate = async (req, res) => {
       raw: true,
       where: { cust_mobile_no: id },
     });
+    console.log(findBiller_customer, "fsjskudhoh");
     const findBiller = await biller.findOne({
       where: { biller_code: biller_code },
     });
-    console.log(findBiller, findBiller_customer);
+    console.log(findBiller);
     if (!findBiller_customer || !findBiller) {
       return res
         .status(404)
@@ -49,7 +49,7 @@ export const saveCrefAndValidate = async (req, res) => {
         biller_code: biller_code,
         biller_customer_account_no: biller_customer_account_no,
       },
-      order: [["createdAt", "DESC"]],
+      // order: [["createdAt", "DESC"]],
       attributes: [
         "biller_code",
         "biller_customer_account_no",
@@ -66,22 +66,28 @@ export const saveCrefAndValidate = async (req, res) => {
         "reading_date",
       ],
     });
+    console.log(findBiler_bills, "fsjskudhoh");
     if (!findBiler_bills) {
       res
         .status(500)
         .json({ success: false, message: "Customer Account No Went Wrong!" });
     }
-
-    // save as cross ref 
- 
-    await customer_biller_cref.create({
-        customer_id:id,
-        biller_id:findBiller.biller_id,
-        biller_customer_account_no:biller_customer_account_no
-    })
-    return res.json({ success: true, data: findBiler_bills })
-
-    
+    // save as cross ref
+    const finduserref = await customer_biller_cref.findOne({
+      where: {
+        customer_id: findBiller_customer.customer_id,
+        biller_id: findBiller.biller_id,
+        biller_customer_account_no: biller_customer_account_no,
+      },
+    });
+    if (!finduserref) {
+      await customer_biller_cref.create({
+        customer_id: findBiller_customer.customer_id,
+        biller_id: findBiller.biller_id,
+        biller_customer_account_no: biller_customer_account_no,
+      });
+    }
+    return res.json({ success: true, data: findBiler_bills });
   } catch (error) {
     return res.status(500).json({ success: false, message: error.message });
   }
