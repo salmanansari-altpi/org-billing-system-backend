@@ -17,18 +17,11 @@ export const role_master = connection.define(
       type: DataTypes.STRING(45),
       allowNull: false,
     },
-    createdAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
-    updatedAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
+  
   },
   {
     // Freeze Table Name
     freezeTableName: true,
-    timestamps: false,
+    timestamps: true,
   }
 );

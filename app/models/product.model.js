@@ -4,38 +4,31 @@ import { connection } from "../config/db.js";
 export const product = connection.define(
   "product",
   {
-    Product_Id: {
+    product_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
+      autoIncrement: true,
+      
     },
-    Product_Code: {
+    product_code: {
       type: DataTypes.STRING(8),
       allowNull: true,
       unique: true,
     },
-    Product_Description: {
+    product_description: {
       type: DataTypes.STRING(30),
       allowNull: true,
     },
-    Product_Note: {
+    product_note: {
       type: DataTypes.BLOB('long'),
       allowNull: false,
     },
-    Product_Status: {
+    product_status: {
       type: DataTypes.STRING(2),
       allowNull: true,
     },
-    createdAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
-    },
-    updatedAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
-    },
+  
   },
   {
     // Freeze Table Name

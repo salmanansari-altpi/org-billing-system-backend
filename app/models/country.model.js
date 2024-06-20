@@ -19,7 +19,7 @@ export const country = connection.define(
     },
   },
   {
-    // Freeze Table Name
     freezeTableName: true,
+    timestamps: true,
   }
 )

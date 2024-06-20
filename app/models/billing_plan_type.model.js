@@ -22,7 +22,7 @@ export const billing_plan_type = connection.define(
   },
   {
     freezeTableName: true,
-    timestamps: false,
+    timestamps: true,
    
   }
 );

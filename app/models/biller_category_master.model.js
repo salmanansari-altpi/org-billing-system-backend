@@ -22,19 +22,10 @@ export const biller_category_master = connection.define(
       type: DataTypes.BLOB("medium"),
       allowNull: false,
     },
-    createdAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
-    },
-    updatedAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
-    },
+   
   },
   {
-    // Freeze Table Name
     freezeTableName: true,
+    timestamps: true,
   }
 );

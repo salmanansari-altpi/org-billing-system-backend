@@ -63,16 +63,9 @@ export const user_access = connection.define('user_access', {
         type: DataTypes.STRING(45),
         allowNull: true
     },
-    created_at: {
-        type: DataTypes.DATE,
-        allowNull: false
-    },
-    updated_at: {
-        type: DataTypes.DATE,
-        allowNull: false
-    }
+
 }, {
     // Freeze Table Name
     freezeTableName: true,
-    timestamps: false,
+    timestamps: true,
 });

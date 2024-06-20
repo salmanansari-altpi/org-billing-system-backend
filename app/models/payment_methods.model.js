@@ -24,6 +24,6 @@ export const payment_methods = connection.define(
   {
     // Freeze Table Name
     freezeTableName: true,
-    timestamps:false
+    timestamps:true
   }
 );  

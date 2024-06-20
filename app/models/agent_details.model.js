@@ -117,6 +117,6 @@ export const agent_details = connection.define(
   },
   {
     freezeTableName: true,
-    timestamps: false,
+    timestamps: true,
   }
 );

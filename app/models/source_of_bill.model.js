@@ -18,5 +18,5 @@ export const source_of_bill = connection.define('source_of_bill', {
 }, {
     // Freeze Table Name
     freezeTableName: true,
-    timestamps: false,
+    timestamps: true,
 });

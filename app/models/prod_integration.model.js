@@ -52,7 +52,7 @@ export const prod_integration = connection.define(
       allowNull: true,
     },
     payauthority_id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER(11),
       allowNull: true,
     },
     payauthority_trailer: {
@@ -83,20 +83,12 @@ export const prod_integration = connection.define(
       type: DataTypes.STRING(255),
       allowNull: true,
     },
-    createdAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
-    },
+   
     webhook: {
       type: DataTypes.STRING(255),
       allowNull: true,
     },
-    updatedAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
-    },
+   
   },
   {
     // Freeze Table Name

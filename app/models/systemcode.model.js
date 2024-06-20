@@ -26,6 +26,6 @@ export const systemcode = connection.define(
   {
     // Freeze Table Name
     freezeTableName: true,
-    timestamps: false,
+    timestamps: true,
   }
 );

@@ -52,7 +52,7 @@ export const registration_log_in = connection.define(
     freezeTableName: true,
     // Define table name explicitly
     tableName: "registration_log_in",
-    timestamps: false,
+    timestamps: true,
     underscored: true,
   }
 );
