@@ -11,11 +11,11 @@ export const sales_login = connection.define(
     },
     mobile_no: {
       type: DataTypes.STRING(15),
-      allowNull: false,
+      allowNull: true,
     },
     password: {
       type: DataTypes.STRING(30),
-      allowNull: false,
+      allowNull: true,
     },
 
   },

@@ -8,11 +8,11 @@ export const systemcode = connection.define(
       type: DataTypes.INTEGER(11),
       primaryKey: true,
       autoIncrement: true,
-      allowNull: false,
+      allowNull: true,
     },
     code_type: {
       type: DataTypes.STRING(30),
-      allowNull: false,
+      allowNull: true,
     },
     sys_code: {
       type: DataTypes.STRING(4),
@@ -20,7 +20,7 @@ export const systemcode = connection.define(
     },
     code_description: {
       type: DataTypes.STRING(50),
-      allowNull: false,
+      allowNull: true,
     },
   },
   {

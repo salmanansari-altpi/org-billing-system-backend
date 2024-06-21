@@ -6,23 +6,23 @@ export const user_type_master = connection.define(
   {
     id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       primaryKey: true,
       autoIncrement: true,
     },
     user_type: {
       type: DataTypes.STRING(6),
-      allowNull: false,
+      allowNull: true,
     },
     description: {
       type: DataTypes.STRING(45),
-      allowNull: false,
+      allowNull: true,
     },
     mandatory: {
       type: DataTypes.STRING(1),
-      allowNull: false,
+      allowNull: true,
     },
-   
+
   },
   {
     // Freeze Table Name

@@ -8,7 +8,7 @@ export const biller = connection.define(
       type: DataTypes.INTEGER(11),
       autoIncrement: true,
       primaryKey: true,
-      allowNull: false,
+      allowNull: true,
     },
     biller_code: {
       type: DataTypes.STRING(18),
@@ -25,7 +25,7 @@ export const biller = connection.define(
     },
     biller_category: {
       type: DataTypes.STRING(6),
-      allowNull: false,
+      allowNull: true,
     },
     country_id: {
       type: DataTypes.INTEGER(11),

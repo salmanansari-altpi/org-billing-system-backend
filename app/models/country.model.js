@@ -7,7 +7,7 @@ export const country = connection.define(
     country_id: {
       type: DataTypes.INTEGER(11),
       primaryKey: true,
-      allowNull: false,
+      allowNull: true,
     },
     country_name: {
       type: DataTypes.STRING(50),

@@ -9,7 +9,7 @@ export const ui_merchant = connection.define('ui_merchant', {
     },
     int_id: {
         type: DataTypes.INTEGER(11),
-        allowNull: false
+        allowNull: true
     },
     integration_code: {
         type: DataTypes.STRING(10),
@@ -72,7 +72,7 @@ export const ui_merchant = connection.define('ui_merchant', {
         type: DataTypes.STRING(30),
         allowNull: true
     },
-   
+
 }, {
     // Freeze Table Name
     freezeTableName: true,

@@ -8,7 +8,7 @@ export const biller_contact = connection.define(
       type: DataTypes.INTEGER(8),
       autoIncrement: true,
       primaryKey: true,
-      allowNull: false,
+      allowNull: true,
     },
     biller_id: {
       type: DataTypes.INTEGER(6),

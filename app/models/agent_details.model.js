@@ -8,7 +8,7 @@ export const agent_details = connection.define(
       type: DataTypes.INTEGER(11),
       autoIncrement: true,
       primaryKey: true,
-      allowNull: false,
+      allowNull: true,
     },
     agent_name: {
       type: DataTypes.STRING(100),

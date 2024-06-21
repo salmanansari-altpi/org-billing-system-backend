@@ -6,7 +6,7 @@ export const product = connection.define(
   {
     product_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       primaryKey: true,
       autoIncrement: true,
       
@@ -22,13 +22,12 @@ export const product = connection.define(
     },
     product_note: {
       type: DataTypes.BLOB('long'),
-      allowNull: false,
+      allowNull: true,
     },
     product_status: {
       type: DataTypes.STRING(2),
       allowNull: true,
     },
-  
   },
   {
     // Freeze Table Name

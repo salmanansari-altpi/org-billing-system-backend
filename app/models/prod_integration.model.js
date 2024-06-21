@@ -8,7 +8,7 @@ export const prod_integration = connection.define(
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
-      allowNull: false,
+      allowNull: true,
     },
     integration_code: {
       type: DataTypes.STRING(10),
@@ -83,12 +83,11 @@ export const prod_integration = connection.define(
       type: DataTypes.STRING(255),
       allowNull: true,
     },
-   
+
     webhook: {
       type: DataTypes.STRING(255),
       allowNull: true,
     },
-   
   },
   {
     // Freeze Table Name

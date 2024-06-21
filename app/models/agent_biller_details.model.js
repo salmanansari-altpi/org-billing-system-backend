@@ -8,7 +8,7 @@ export const agent_biller_details = connection.define(
       type: DataTypes.INTEGER(6),
       autoIncrement: true,
       primaryKey: true,
-      allowNull: false,
+      allowNull: true,
     },
     agent_type: {
       type: DataTypes.STRING(6),
