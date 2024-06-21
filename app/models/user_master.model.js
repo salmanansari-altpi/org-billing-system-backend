@@ -93,6 +93,6 @@ export const user_master = connection.define(
   {
     // Freeze Table Name
     freezeTableName: true,
-    timestamps: false,
+    timestamps: true,
   }
 );

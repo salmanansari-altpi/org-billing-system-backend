@@ -8,7 +8,7 @@ export const prod_integration = connection.define(
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
-      allowNull: false,
+      allowNull: true,
     },
     integration_code: {
       type: DataTypes.STRING(10),
@@ -52,7 +52,7 @@ export const prod_integration = connection.define(
       allowNull: true,
     },
     payauthority_id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER(11),
       allowNull: true,
     },
     payauthority_trailer: {
@@ -83,19 +83,10 @@ export const prod_integration = connection.define(
       type: DataTypes.STRING(255),
       allowNull: true,
     },
-    createdAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
-    },
+
     webhook: {
       type: DataTypes.STRING(255),
       allowNull: true,
-    },
-    updatedAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
     },
   },
   {

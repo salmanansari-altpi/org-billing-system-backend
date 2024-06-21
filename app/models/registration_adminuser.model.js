@@ -6,40 +6,31 @@ export const registration_adminuser = connection.define(
   {
     id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       primaryKey: true,
       autoIncrement: true,
     },
     f_name: {
       type: DataTypes.STRING(20),
-      allowNull: false,
+      allowNull: true,
     },
     l_name: {
       type: DataTypes.STRING(20),
-      allowNull: false,
+      allowNull: true,
     },
     email: {
       type: DataTypes.STRING(30),
-      allowNull: false,
+      allowNull: true,
     },
     mobile: {
       type: DataTypes.STRING(15),
-      allowNull: false,
+      allowNull: true,
     },
     password: {
       type: DataTypes.STRING(15),
-      allowNull: false,
+      allowNull: true,
     },
-    created_at: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
-    },
-    updated_at: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
-    },
+
   },
   {
     // Freeze Table Name

@@ -2,43 +2,51 @@ import { where } from "sequelize";
 import { models } from "../../models/index.js";
 import jwt from "jsonwebtoken";
 import { biller_category_master } from "../../models/biller_category_master.model.js";
+import { veriedMobileNos } from "../../../index.js";
 
 const { customer } = models;
 
 export const onBoardCustomer = async (req, res) => {
   try {
+    const { id } = req.user;
     const {
       appRefSrNo,
       email,
       password,
-      mobileNo,
       firstName,
       lastName,
       registeredDate,
       suspendedDate,
     } = req.body;
-    const finduser = await customer.findOne({where:{cust_email_id: email,
-      cust_password: password,}})
-    if(finduser){
-      return res
-      .status(400)
-      .json({ success: false, message: "User already exist!" });
+
+    const verifiedUser = veriedMobileNos.find((data) => data.mobileNo === id);
+
+    if (!verifiedUser) {
+      return res.status(404).json({ success: false, message: "Not Verified!" });
     }
-    if (!email || !password || !firstName || !lastName || !mobileNo) {
+
+    const finduser = await customer.findOne({
+      where: { cust_email_id: email, cust_password: password },
+    });
+    if (finduser) {
       return res
         .status(400)
-        .json({ success: false, message: "All Fields are Mandatory!" });
+        .json({ success: false, message: "User already exist!" });
+    }
+    if (!email || !password || !firstName || !lastName) {
+      return res
+        .status(400)
+        .json({ success: true, message: "All Fields are Mandatory!" });
     }
     const date = new Date();
     const data = await customer.create({
       // app_ref_sr_no: appRefSrNo,
       cust_email_id: email,
       cust_password: password,
-      cust_mobile_no: mobileNo,
+      cust_mobile_no: id,
       cust_last_name: lastName,
       cust_first_name: firstName,
       registered_date: date,
-     
     });
     console.log(data);
     res
@@ -46,16 +54,16 @@ export const onBoardCustomer = async (req, res) => {
       .json({ success: true, message: "User onboarded successfully!" });
   } catch (err) {
     console.log("Error while onBoarding Customer:- ", err);
-    res.status(500).json({ success: false, message: "Something Went Wrong!" });
+    res.status(500).json({ success: true, message: "Something Went Wrong!" });
   }
 };
 
-export const categary = async(req,res)=>{
+export const categary = async (req, res) => {
   try {
     const biller_category = await biller_category_master.findAll({
-      attributes:['id','customer_type','description','notes']
+      attributes: ["id", "customer_type", "description", "notes"],
     });
-    
+
     if (biller_category) {
       return res.status(200).json({
         success: true,
@@ -68,7 +76,7 @@ export const categary = async(req,res)=>{
       .status(404)
       .json({ success: false, message: "internal error", data: null });
   }
-}
+};
 
 export const customerSignIn = async (req, res) => {
   try {
@@ -77,7 +85,7 @@ export const customerSignIn = async (req, res) => {
     if (!mobileNo || !password) {
       return res
         .status(400)
-        .json({ success: false, message: "All fields are mandatory!" });
+        .json({ success: true, message: "All fields are mandatory!" });
     }
 
     const userExist = await customer.findOne({
@@ -86,7 +94,7 @@ export const customerSignIn = async (req, res) => {
     if (!userExist) {
       return res
         .status(404)
-        .json({ success: false, message: "Invalid mobile or password!" });
+        .json({ success: true, message: "Invalid mobile or password!" });
     }
 
     const token = jwt.sign({ id: mobileNo }, process.env.JWT_SECRET, {
@@ -94,6 +102,6 @@ export const customerSignIn = async (req, res) => {
     });
     res.status(200).json({ success: true, token });
   } catch (err) {
-    res.status(500).json({ success: false, message: "Something Went Wrong!" });
+    res.status(500).json({ success: true, message: "Something Went Wrong!" });
   }
 };

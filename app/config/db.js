@@ -10,12 +10,12 @@ export const connection = new Sequelize(
     host: process.env.Workspace_DB_RDS_HOST,
     dialect: process.env.Workspace_DB_DIALECT,
     dialectOptions: {
-      useUTC: false,
+      useUTC: true,
       raw: true,
       underscored: true, // If your column names in the database are in snake_case, set this to true
     },
     timezone: "+05:30",
-    loggin: false,
+    loggin: true,
   }
 );
 // const sequelize = new Sequelize(
@@ -26,7 +26,7 @@ export const connection = new Sequelize(
 //        host: process.env.DB_LOCAL_HOST,
 //        dialect: process.env.DB_DIALECT,
 //        dialectOptions:{
-//            useUTC:false,
+//            useUTC:true,
 //        },
 //        timezone:'+05:30'
 //      }
