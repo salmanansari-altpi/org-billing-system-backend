@@ -7,38 +7,38 @@ export const biller_bills = connection.define(
     biller_bill_id: {
       type: DataTypes.INTEGER(6),
       autoIncrement: true,
-      allowNull: false,
+      allowNull: true,
       primaryKey: true,
     },
     //this is the same_id picked from biller table
     biller_id: {
       type: DataTypes.INTEGER(6),
-      allowNull: false,
+      allowNull: true,
     },
     // biller code picked up from iler table
     biller_code: {
       type: DataTypes.STRING(6),
-      allowNull: false,
+      allowNull: true,
     },
     biller_customer_account_no: {
       type: DataTypes.STRING(20),
-      allowNull: false,
+      allowNull: true,
     },
     biller_bill_no: {
       type: DataTypes.STRING(20),
-      allowNull: false,
+      allowNull: true,
     },
     biller_customer_name: {
       type: DataTypes.STRING(50),
-      allowNull: false,
+      allowNull: true,
     },
     biller_bill_date: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
     },
     biller_bill_amount: {
       type: DataTypes.DECIMAL(12, 2),
-      allowNull: false,
+      allowNull: true,
     },
     biller_other_charges: {
       type: DataTypes.DECIMAL(12, 2),
@@ -50,11 +50,11 @@ export const biller_bills = connection.define(
     },
     biller_pending_due: {
       type: DataTypes.DECIMAL(12, 2),
-      allowNull: false,
+      allowNull: true,
     },
     biller_total_amount_due: {
       type: DataTypes.DECIMAL(12, 2),
-      allowNull: false,
+      allowNull: true,
     },
     last_meter_reading: {
       type: DataTypes.DECIMAL(14, 2),

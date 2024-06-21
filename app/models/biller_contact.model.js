@@ -8,7 +8,7 @@ export const biller_contact = connection.define(
       type: DataTypes.INTEGER(8),
       autoIncrement: true,
       primaryKey: true,
-      allowNull: false,
+      allowNull: true,
     },
     biller_id: {
       type: DataTypes.INTEGER(6),
@@ -27,7 +27,7 @@ export const biller_contact = connection.define(
       allowNull: true,
     },
     state: {
-      type: DataTypes.INTEGER(11),
+      type: DataTypes.STRING(50),
       allowNull: true,
     },
     pin: {
@@ -75,8 +75,8 @@ export const biller_contact = connection.define(
       allowNull: true,
     },  
   },
-   {
-        // Freeze Table Name
-        freezeTableName: true,
-      }
+  {
+    freezeTableName: true,
+    timestamps: true,
+  }
 )

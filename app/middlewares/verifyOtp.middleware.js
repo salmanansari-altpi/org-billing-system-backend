@@ -8,20 +8,20 @@ export const verifyOTPToken = async (req, res, next) => {
     if (!token) {
       return res
         .status(401)
-        .json({ success: false, message: "No token found!" });
+        .json({ success: true, message: "No token found!" });
     }
     jwt.verify(token, process.env.JWT_SECRET, (err, data) => {
       if (err) {
         return res
           .status(401)
-          .json({ success: false, message: "Unauthorized!" });
+          .json({ success: true, message: "Unauthorized!" });
       }
       req.user = data;
       next();
     });
   } else {
     return res.status(401).json({
-      success: false,
+      success: true,
       message: "Unauthorized: Missing or invalid token!",
     });
   }

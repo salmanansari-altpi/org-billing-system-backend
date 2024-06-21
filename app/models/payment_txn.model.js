@@ -42,7 +42,7 @@ export const payment_txn = connection.define('payment_txn', {
     },
     application_reference_no: {
       type: DataTypes.STRING(20),
-      allowNull: false,
+      allowNull: true,
     },
     payment_mode: {
       type: DataTypes.STRING(6),
@@ -138,12 +138,12 @@ export const payment_txn = connection.define('payment_txn', {
     },
     created_at: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
       // defaultValue: DataTypes.NOW,
     },
     updated_at: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
       // defaultValue: DataTypes.NOW,
     },
     endUser_account_no: {

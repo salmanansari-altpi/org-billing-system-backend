@@ -8,33 +8,24 @@ export const biller_category_master = connection.define(
       type: DataTypes.INTEGER(11),
       autoIncrement: true,
       primaryKey: true,
-      allowNull: false,
+      allowNull: true,
     },
     customer_type: {
       type: DataTypes.STRING(6),
-      allowNull: false,
+      allowNull: true,
     },
     description: {
       type: DataTypes.STRING(45),
-      allowNull: false,
+      allowNull: true,
     },
     notes: {
       type: DataTypes.BLOB("medium"),
       allowNull: true,
     },
-    createdAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
-    },
-    updatedAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
-    },
+
   },
   {
-    // Freeze Table Name
     freezeTableName: true,
+    timestamps: true,
   }
 );
