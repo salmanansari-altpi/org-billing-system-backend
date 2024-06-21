@@ -11,8 +11,8 @@ import integration from "./integration/integration.route.js";
 // router.use("/billFile", uploadBillFile);
 router.use("/agent", agentApi);
 router.use("/auth", authRoute);
-router.use("/biller",addNewBiller)
-router.use("/customer",customerApi);
-router.use("/integration",integrations);
+router.use("/biller", addNewBiller);
+router.use("/customer", customerApi);
+router.use("/integration", integrations);
 
 export default router;

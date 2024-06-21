@@ -23,8 +23,8 @@ export const getCustomerBills = async (req, res) => {
 
     if (!custBills.length) {
       return res
-        .status(404)
-        .json({ success: true, message: "No bills found!" });
+        .status(200)
+        .json({ success: false, message: "No bills found!", data: [] });
     }
 
     let billerData = [];

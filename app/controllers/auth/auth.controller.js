@@ -1,8 +1,7 @@
 import jwt from "jsonwebtoken";
 import { models } from "../../models/index.js";
 
-import { otps } from "../../../index.js";
-import { where } from "sequelize";
+import { otps, veriedMobileNos } from "../../../index.js";
 const { customer } = models;
 
 export const generateOTP = async (req, res) => {
@@ -20,8 +19,7 @@ export const generateOTP = async (req, res) => {
     } else {
       otps.splice(otpExistIndex, 1, { otp, mobileNo, time: new Date() });
     }
-    console.log(otps);
-    const token = jwt.sign({ mobileNo }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ id: mobileNo }, process.env.JWT_SECRET, {
       expiresIn: "5m",
     });
     res.status(201).json({
@@ -38,18 +36,25 @@ export const generateOTP = async (req, res) => {
 export const verifyOTP = async (req, res) => {
   try {
     const { otp } = req.body;
-    const { mobileNo } = req.user;
+    let { id: mobileNo } = req.user;
 
     const verify = otps.find((data) => data.mobileNo === mobileNo);
     const now = new Date();
     const threshold = new Date(now.getMinutes() - 5 * 60 * 1000);
-    if (verify.time <= threshold) {
-      return res.status(400).json({ success: true, message: "OTP Expired!" });
+    if (verify?.time <= threshold) {
+      return res.status(400).json({ success: false, message: "OTP Expired!" });
     }
     if (verify.otp != otp) {
       return res.status(400).json({ success: true, message: "Invalid OTP" });
     }
-    otps = otps.filter((data) => data.mobileNo !== mobileNo);
+    const index = otps.findIndex((data) => data.mobileNo === mobileNo);
+    if (index !== -1) {
+      veriedMobileNos.push({
+        time: new Date(),
+        mobileNo: otps[index].mobileNo,
+      });
+      otps.splice(index, 1);
+    }
     res.status(201).json({ success: true, message: "Valid OTP" });
   } catch (err) {
     console.log("Error while generating OTP:-", err);
@@ -59,7 +64,7 @@ export const verifyOTP = async (req, res) => {
 
 export const signup = async (req, res) => {
   try {
-    const { mobileNo } = req.user;
+    let { id: mobileNo } = req.user;
     const { fName, lName, password, repassword } = req.body;
 
     if (!fName || !lName || !password || !repassword) {
