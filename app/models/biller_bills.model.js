@@ -7,7 +7,7 @@ export const biller_bills = connection.define(
     biller_bill_id: {
       type: DataTypes.INTEGER(6),
       autoIncrement: true,
-      allowNull: false,
+      allowNull: true,
       primaryKey: true,
     },
     //this is the same_id picked from biller table

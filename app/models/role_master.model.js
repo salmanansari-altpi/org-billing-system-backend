@@ -17,14 +17,7 @@ export const role_master = connection.define(
       type: DataTypes.STRING(45),
       allowNull: true,
     },
-    createdAt: {
-      type: DataTypes.DATE,
-      allowNull: true,
-    },
-    updatedAt: {
-      type: DataTypes.DATE,
-      allowNull: true,
-    },
+
   },
   {
     // Freeze Table Name

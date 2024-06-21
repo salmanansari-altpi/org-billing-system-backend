@@ -12,15 +12,15 @@ export const currency = connection.define(
     },
     currency_name: {
       type: DataTypes.STRING(50),
-      allowNull: true,
+      allowNull: false,
     },
     currency_code: {
       type: DataTypes.STRING(4),
-      allowNull: true,
+      allowNull: false,
     },
   
-  },{
-        // Freeze Table Name
-        freezeTableName: true,
+  }, {
+    freezeTableName: true,
+    timestamps: true,
   }
 )

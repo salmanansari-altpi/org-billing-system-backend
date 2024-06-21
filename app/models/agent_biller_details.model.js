@@ -5,7 +5,7 @@ export const agent_biller_details = connection.define(
   "agent_biller_details",
   {
     agent_id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER(6),
       autoIncrement: true,
       primaryKey: true,
       allowNull: true,

@@ -25,7 +25,7 @@ export const customer_biller_cref = connection.define(
 
   },
   {
-    // Freeze Table Name
     freezeTableName: true,
+    timestamps: true,
   }
 );  

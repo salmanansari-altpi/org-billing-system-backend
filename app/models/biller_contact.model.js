@@ -75,8 +75,8 @@ export const biller_contact = connection.define(
       allowNull: true,
     },  
   },
-   {
-        // Freeze Table Name
-        freezeTableName: true,
-      }
+  {
+    freezeTableName: true,
+    timestamps: true,
+  }
 )

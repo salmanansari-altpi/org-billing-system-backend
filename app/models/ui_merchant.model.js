@@ -72,14 +72,7 @@ export const ui_merchant = connection.define('ui_merchant', {
         type: DataTypes.STRING(30),
         allowNull: true
     },
-    created_at: {
-        type: DataTypes.DATE,
-        allowNull: true
-    },
-    updated_at: {
-        type: DataTypes.DATE,
-        allowNull: true
-    }
+
 }, {
     // Freeze Table Name
     freezeTableName: true,

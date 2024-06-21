@@ -30,16 +30,7 @@ export const registration_adminuser = connection.define(
       type: DataTypes.STRING(15),
       allowNull: true,
     },
-    created_at: {
-      type: DataTypes.DATE,
-      allowNull: true,
-      defaultValue: DataTypes.NOW,
-    },
-    updated_at: {
-      type: DataTypes.DATE,
-      allowNull: true,
-      defaultValue: DataTypes.NOW,
-    },
+
   },
   {
     // Freeze Table Name

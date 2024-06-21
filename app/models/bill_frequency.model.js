@@ -18,5 +18,8 @@ export  const biller_frequency=connection.define(
         type:DataTypes.STRING(20),
         allowNull:true
     }
-}
+},  {
+    freezeTableName: true,
+    timestamps: true,
+  }
 )

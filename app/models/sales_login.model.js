@@ -17,14 +17,7 @@ export const sales_login = connection.define(
       type: DataTypes.STRING(30),
       allowNull: true,
     },
-    createdAt: {
-      type: DataTypes.DATE,
-      allowNull: true,
-    },
-    updatedAt: {
-      type: DataTypes.DATE,
-      allowNull: true,
-    },
+
   },
   {
     // Freeze Table Name
