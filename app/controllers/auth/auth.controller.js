@@ -90,6 +90,10 @@ export const signup = async (req, res) => {
   }
 };
 
+const getMenus = ()=>{
+  return;
+}
+
 // export const signin = async (req, res) => {
 //   try {
 //     const { mobileNo, password } = req.body;
