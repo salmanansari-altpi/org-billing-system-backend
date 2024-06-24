@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import { models } from "../../models/index.js";
 
 import { otps, veriedMobileNos } from "../../../index.js";
-const { customer, dashboard_menus, menu_elements } = models;
+const { customer, dashboard_menus, menu_elements, user_master } = models;
 
 export const generateOTP = async (req, res) => {
   try {
@@ -98,23 +98,43 @@ export const signup = async (req, res) => {
 export const signin = async (req, res) => {
   try {
     const { mobileNo, password } = req.body;
-    if (!mobileNo || !password) {
-      return res
-        .status(400)
-        .json({ success: true, message: "All fields are mandatory!" });
-    }
-
-    const userExist = await customer.findOne({
-      where: { mobileNo: mobileNo, password: password },
+    let user = await user_master.findOne({
+      raw: true,
+      attributes: [
+        "id",
+        "party_code",
+        "user_type",
+        "role",
+        "f_name",
+        "l_name",
+        "email",
+        "mobile_no",
+      ],
+      where: { [Op.and]: [{ mobile_no: mobileNo }, { password: password }] },
     });
-    if (!userExist) {
-      return res
-        .status(404)
-        .json({ success: true, message: "Invalid mobile or password!" });
-    }
-    const {party_code,user_type,role}= userExist;
 
-    const token = jwt.sign({ mobileNo }, process.env.JWT_SECRET, {
+    // If user not found, return error
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+        message: "Please try to login with correct credentials!",
+      });
+    }
+
+    const { id, party_code, user_type, role, f_name, l_name} = user;
+
+    // Check if user is unauthorized
+    const unauthorizedUserRoles = ["Collection Agent", "End User"];
+    if (unauthorizedUserRoles.includes(role)) {
+      return res
+        .status(401)
+        .json({ success: false, message: "You are not authorized!" });
+    }
+
+    // Generate JWT token
+    const PAYLOAD = { id, party_code, user_type, role };
+
+    const token = jwt.sign(PAYLOAD, process.env.JWT_SECRET, {
       expiresIn: "10d",
     });
     // Fetch menu items for the user
