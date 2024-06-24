@@ -23,6 +23,7 @@ export const getBillersByCategory = async (req, res) => {
 export const saveCrefAndValidate = async (req, res) => {
   try {
     const { id } = req.user;
+    console.log(id);
     const { biller_code, biller_customer_account_no } = req.body;
     if (!biller_code || !biller_customer_account_no) {
       return res
@@ -49,7 +50,7 @@ export const saveCrefAndValidate = async (req, res) => {
         biller_code: biller_code,
         biller_customer_account_no: biller_customer_account_no,
       },
-      // order: [["createdAt", "DESC"]],
+      order: [["createdAt", "DESC"]],
       attributes: [
         "biller_code",
         "biller_customer_account_no",
@@ -66,20 +67,35 @@ export const saveCrefAndValidate = async (req, res) => {
         "reading_date",
       ],
     });
+    const findBiler_bills_id = await biller_bills.findOne({
+      where: {
+        biller_code: biller_code,
+        biller_customer_account_no: biller_customer_account_no,
+      },
+      order: [["createdAt", "DESC"]],
+      attributes: ["biller_id"],
+    });
     console.log(findBiler_bills, "fsjskudhoh");
     if (!findBiler_bills) {
-      res
-        .status(500)
+     return res
+        .status(404)
         .json({ success: false, message: "Customer Account No Went Wrong!" });
     }
     // save as cross ref
     const finduserref = await customer_biller_cref.findOne({
       where: {
         customer_id: findBiller_customer.customer_id,
-        biller_id: findBiller.biller_id,
+        biller_id: findBiler_bills_id.biller_id,
         biller_customer_account_no: biller_customer_account_no,
       },
     });
+    console.log(
+      finduserref,
+      "",
+      findBiller_customer.customer_id,
+      findBiller.biller_id,
+      biller_customer_account_no
+    );
     if (!finduserref) {
       await customer_biller_cref.create({
         customer_id: findBiller_customer.customer_id,
@@ -87,6 +103,7 @@ export const saveCrefAndValidate = async (req, res) => {
         biller_customer_account_no: biller_customer_account_no,
       });
     }
+    //  await delete findBiler_bills.biller_id;
     return res.json({ success: true, data: findBiler_bills });
   } catch (error) {
     return res.status(500).json({ success: false, message: error.message });

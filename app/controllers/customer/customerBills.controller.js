@@ -31,7 +31,7 @@ export const getCustomerBills = async (req, res) => {
     for (const cust of custBills) {
       const billerInfo = await biller.findOne({
         raw: true,
-        attributes: ["biller_code", "biller_name", "biller_category"],
+        attributes: ["biller_code", "biller_name", "biller_category","bill_currency_id"],
         where: { biller_id: cust.biller_id },
       });
 

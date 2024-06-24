@@ -13,6 +13,6 @@ router.use("/agent", agentApi);
 router.use("/auth", authRoute);
 router.use("/biller", addNewBiller);
 router.use("/customer", customerApi);
-router.use("/integration", integrations);
+router.use("/integration", integration);
 
 export default router;

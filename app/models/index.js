@@ -74,16 +74,17 @@ export const models = {
 };
 
 //Dictates whether tables are modified or not;
-// !! KEEP IT true I REPEAT KEEP IT true
+// !! KEEP IT FALSE I REPEAT KEEP IT FALSE
 const flag = false;
 
 const flag2 = false; //! ARE YOU SURE?
+// const force  = false ; // it may delete your data  don't do that at production
 
 const syncAllTables = async (models) => {
   if (flag) {
     try {
       for (const [modelName, model] of Object.entries(models)) {
-        await model.sync({ alter: flag2 });
+        await model.sync({ alter: flag2});
         console.log(`Table ${modelName} synchronized successfully!`);
       }
       console.log("Models altered and synchronized!");
