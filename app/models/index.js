@@ -31,6 +31,9 @@ import { payment_methods } from "./payment_methods.model.js";
 import { payment_txn } from "./payment_txn.model.js";
 import { agent_details } from "./agent_details.model.js";
 import { billing_plan_type } from "./billing_plan_type.model.js";
+import { cust_type_menu } from "./cust_type_menu.model.js";
+import { dashboard_menus } from "./dashboard_meuns.model.js";
+import { menu_elements } from "./menu_elements.model.js";
 
 export const models = {
   agent_biller_details,
@@ -40,12 +43,13 @@ export const models = {
   biller_category_master,
   biller_contact,
   biller_frequency,
+  billing_plan_type,
   country,
   currency,
   customer,
-  agent_biller_details,
-  biller,
-  biller_bills,
+  cust_type_menu,
+  dashboard_menus,
+  menu_elements,
   prod_integration,
   product,
   prod_integration,
@@ -70,14 +74,13 @@ export const models = {
   pay_authority,
   payment_methods,
   payment_txn,
-  billing_plan_type,
 };
 
 //Dictates whether tables are modified or not;
 // !! KEEP IT true I REPEAT KEEP IT true
 const flag = false;
 
-const flag2 = false; //! ARE YOU SURE?
+const flag2 = true; //! ARE YOU SURE?
 
 const syncAllTables = async (models) => {
   if (flag) {
