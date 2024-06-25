@@ -97,7 +97,8 @@ export const signup = async (req, res) => {
 
 export const signin = async (req, res) => {
   try {
-    const { mobileNo, password } = req.body;
+    const { email, password } = req.body;
+    console.log(email);
     let user = await user_master.findOne({
       raw: true,
       attributes: [
@@ -110,8 +111,9 @@ export const signin = async (req, res) => {
         "email",
         "mobile_no",
       ],
-      where: { [Op.and]: [{ mobile_no: mobileNo }, { password: password }] },
+      where: { user_name: email , password: password  },
     });
+    console.log(user);
 
     // If user not found, return error
     if (!user) {
@@ -205,6 +207,6 @@ export const signin = async (req, res) => {
     });
     res.status(200).json({ success: true, data:{token,allMenus} });
   } catch (err) {
-    res.status(500).json({ success: true, message: "Something Went Wrong!" });
+    res.status(500).json({ success: true, message: err });
   }
 };
