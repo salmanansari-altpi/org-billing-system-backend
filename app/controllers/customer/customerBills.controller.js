@@ -1,8 +1,10 @@
 import { where } from "sequelize";
 import { models } from "../../models/index.js";
+import { raw } from "mysql2";
 // import { raw } from "body-parser";
 
-const { customer, customer_biller_cref, biller, biller_bills } = models;
+const { customer, customer_biller_cref, biller, biller_bills, currency } =
+  models;
 
 export const getCustomerBills = async (req, res) => {
   try {
@@ -31,9 +33,22 @@ export const getCustomerBills = async (req, res) => {
     for (const cust of custBills) {
       const billerInfo = await biller.findOne({
         raw: true,
-        attributes: ["biller_code", "biller_name", "biller_category"],
+        attributes: [
+          "biller_code",
+          "biller_name",
+          "biller_category",
+          "bill_currency_id",
+        ],
         where: { biller_id: cust.biller_id },
       });
+
+      const currencyInfo = await currency.findOne({
+        raw: true,
+        attributes: ['currency_icon'],
+        where: { currency_iD: billerInfo.bill_currency_id },
+      });
+
+      console.log("-----------------", currencyInfo);
 
       const billerBills = await biller_bills.findAll({
         raw: true,
@@ -59,6 +74,7 @@ export const getCustomerBills = async (req, res) => {
         billerData.push({
           billerInfo,
           bills: billerBills,
+          currency: currencyInfo,
         });
       }
     }

@@ -121,3 +121,16 @@ export const signup = async (req, res) => {
 //     res.status(500).json({ success: true, message: "Something Went Wrong!" });
 //   }
 // };
+
+export const verifyUser = async (req, res) => {
+  try {
+    const { id } = req.user;
+    if (!id) {
+      return res.status(401).json({ success: false, message: "Unauthorized!" });
+    }
+    res.status(200).json({ success: true, message: "User Verified!" });
+  } catch (err) {
+    console.log("Error when authenticating:-", err);
+    res.status(500).json({ success: false, message: "Something went wrong!" });
+  }
+};
