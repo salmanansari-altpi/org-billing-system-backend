@@ -7,6 +7,7 @@ const { customer, dashboard_menus, menu_elements, user_master } = models;
 export const generateOTP = async (req, res) => {
   try {
     const { mobileNo } = req.body;
+    console.log(mobileNo, 'ejfiorehoioihrioowejooj');
     if (!mobileNo) {
       return res
         .status(400)
@@ -97,6 +98,7 @@ export const signup = async (req, res) => {
 
 export const signin = async (req, res) => {
   try {
+    console.log('uewfhoiuheuioh');
     const { email, password } = req.body;
     console.log(email);
     let user = await user_master.findOne({
@@ -111,7 +113,7 @@ export const signin = async (req, res) => {
         "email",
         "mobile_no",
       ],
-      where: { user_name: email , password: password  },
+      where: { user_name: email, password: password },
     });
     console.log(user);
 
@@ -123,7 +125,7 @@ export const signin = async (req, res) => {
       });
     }
 
-    const { id, party_code, user_type, role, f_name, l_name} = user;
+    const { id, party_code, user_type, role, f_name, l_name } = user;
 
     // Check if user is unauthorized
     const unauthorizedUserRoles = ["Collection Agent", "End User"];
@@ -205,8 +207,20 @@ export const signin = async (req, res) => {
       data.subs = allSideMenus;
       return data;
     });
-    res.status(200).json({ success: true, data:{token,allMenus} });
+    res.status(200).json({ success: true, data: { token, allMenus } });
   } catch (err) {
     res.status(500).json({ success: true, message: err });
+  }
+};
+
+export const verifyUser = async (req, res) => {
+  try {
+    const { id } = req.user;
+    if (!id) {
+      return res.status(401).json({ success: false, message: "Unauthorized" });
+    }
+    res.status(200).json({ success: true, message: "User Verified!" });
+  } catch (err) {
+    res.status(500).json({ success: false, message: "Something went wrong!" });
   }
 };
