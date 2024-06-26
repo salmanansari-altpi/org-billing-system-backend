@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import { models } from "../../models/index.js";
 
 import { otps, veriedMobileNos } from "../../../index.js";
+import { Op } from "sequelize";
 const { customer, dashboard_menus, menu_elements, user_master } = models;
 
 export const generateOTP = async (req, res) => {
@@ -111,7 +112,7 @@ export const signin = async (req, res) => {
         "email",
         "mobile_no",
       ],
-      where: { user_name: email , password: password  },
+      where: { [Op.and]: [{ user_name: email }, { password: password }] },
     });
     console.log(user);
 
@@ -123,7 +124,7 @@ export const signin = async (req, res) => {
       });
     }
 
-    const { id, party_code, user_type, role, f_name, l_name} = user;
+    const { id, party_code, user_type, role, f_name, l_name } = user;
 
     // Check if user is unauthorized
     const unauthorizedUserRoles = ["Collection Agent", "End User"];
@@ -205,7 +206,7 @@ export const signin = async (req, res) => {
       data.subs = allSideMenus;
       return data;
     });
-    res.status(200).json({ success: true, data:{token,allMenus} });
+    res.status(200).json({ success: true, data: { token, allMenus } });
   } catch (err) {
     res.status(500).json({ success: true, message: err });
   }

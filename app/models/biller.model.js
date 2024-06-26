@@ -106,6 +106,26 @@ export const biller = connection.define(
       type: DataTypes.STRING(1),
       allowNull: true,
     },
+    biller_message_1:{
+      type: DataTypes.STRING(200),
+      allowNull: true,
+
+    },
+biller_message_2:{
+  type: DataTypes.STRING(200),
+  allowNull: true,
+
+},
+biller_price_id :{
+  type: DataTypes.INTEGER(6),
+  allowNull: true,
+
+},
+biller_cycle:{
+  type: DataTypes.INTEGER(2),
+  allowNull: true,
+
+}
     
   },
   {

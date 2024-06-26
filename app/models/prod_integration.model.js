@@ -93,7 +93,7 @@ export const prod_integration = connection.define(
     // Freeze Table Name
     freezeTableName: true,
     // Define table name explicitly
-    tableName: "prodintegration",
+  
     timestamps: true,
   }
 );
