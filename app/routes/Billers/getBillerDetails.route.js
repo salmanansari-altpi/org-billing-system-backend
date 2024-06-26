@@ -10,8 +10,10 @@ import { addNewBiller } from "../../controllers/biller/addNewBiller.controller.j
 import { uploadBillFile } from "../../controllers/biller/uploadBillFile.controller.js";
 import { billerPlanType } from "../../controllers/biller/billerPlanType.controller.js";
 import { allSourceOfBill } from "../../controllers/biller/allSourceOfBill.controller.js";
+import { allBillerInfo } from "../../controllers/biller/allBillerInfo.controller.js";
 
 router.route("/allcategory").get(getAllBillerCategory);
+router.route("/allbiller").get(allBillerInfo);
 
 router.route("/allcurrencydetails").get(allCurrency);
 router.route("/allcountrydetails").get(countryDetails);
@@ -19,7 +21,6 @@ router.route("/allbillfequencys").get(allBillFequencys);
 router.route("/allsourceofbills").get(allSourceOfBill);
 router.route("/addnewbiller").post(addNewBiller);
 router.route("/uploadBill").post(uploadBillFile);
-router.get("/getPlanType",billerPlanType)
-
+router.get("/getPlanType", billerPlanType);
 
 export default router;
