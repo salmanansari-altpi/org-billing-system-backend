@@ -15,7 +15,7 @@ export const customer_biller_cref = connection.define(
       allowNull: true,
     },
     biller_id: {
-      unique:true,
+     
       type: DataTypes.INTEGER(6),
       allowNull: true,
     },

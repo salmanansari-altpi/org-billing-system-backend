@@ -20,6 +20,7 @@ export const onBoardCustomer = async (req, res) => {
     } = req.body;
 
     const verifiedUser = veriedMobileNos.find((data) => data.mobileNo === id);
+    console.log(verifiedUser);
 
     if (!verifiedUser) {
       return res.status(404).json({ success: false, message: "Not Verified!" });
