@@ -6,7 +6,7 @@ const {
   biller_category_master,
   country,
   agent_details,
-  biller_frequencies,
+  biller_frequency,
   source_of_bill,
   billing_plan_type,
 } = models;
@@ -63,7 +63,7 @@ export const allBillerInfo = async (req, res) => {
     });
 
     //! finding all billerFrequency information
-    const allFrequency = await biller_frequencies.findAll({ raw: true });
+    const allFrequency = await biller_frequency.findAll({ raw: true });
 
     //! finding all biller sourceOfBill information
     const allSourceOfBill = await source_of_bill.findAll({ raw: true });

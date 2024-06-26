@@ -8,7 +8,7 @@ import { biller } from "./biller.model.js";
 import { biller_bills } from "./Biller_Bills.model.js";
 import { biller_category_master } from "./biller_category_master.model.js";
 import { biller_contact } from "./biller_contact.model.js";
-import { biller_frequencies } from "./biller_frequencies.model.js";
+import { biller_frequency } from "./biller_frequency.model.js";
 import { country } from "./country.model.js";
 import { currency } from "./currency.model.js";
 import { customer } from "./customer.model.js";
@@ -42,7 +42,7 @@ export const models = {
   biller_bills,
   biller_category_master,
   biller_contact,
-  biller_frequencies,
+  biller_frequency,
   billing_plan_type,
   country,
   currency,
@@ -78,9 +78,9 @@ export const models = {
 
 //Dictates whether tables are modified or not;
 // !! KEEP IT FALSE I REPEAT KEEP IT FALSE
-const flag = false;
+const flag = true;
 
-const flag2 = false; //! ARE YOU SURE?
+const flag2 = true; //! ARE YOU SURE?
 
 const syncAllTables = async (models) => {
   if (flag) {

@@ -1,8 +1,8 @@
 import { DataTypes, NOW } from "sequelize";
 import { connection } from "../config/db.js";
 
-export const biller_frequencies = connection.define(
-  "biller_frequencies",
+export const biller_frequency = connection.define(
+  "biller_frequency",
   {
     bill_freq_id: {
       type: DataTypes.INTEGER(2),

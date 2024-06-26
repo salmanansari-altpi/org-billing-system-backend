@@ -7,7 +7,7 @@ const {
   country,
   source_of_bill,
   currency,
-  biller_frequencies,
+  biller_frequency,
   agent_details,
   billing_plan_type,
   biller_contact,
@@ -48,7 +48,7 @@ export const addNewBiller = async (req, res) => {
       where: { source_of_bill_code },
     });
     const amountType = await currency.findOne({ where: { currency_code } });
-    const billFrequency = await biller_frequencies.findOne({
+    const billFrequency = await biller_frequency.findOne({
       where: { frequency_code },
     });
     let agentId;
