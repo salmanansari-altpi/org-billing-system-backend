@@ -4,10 +4,10 @@ import { models } from "../../models/index.js";
 const {
   biller,
   biller_category_master,
-  country, 
+  country,
   source_of_bill,
   currency,
-  biller_frequency,
+  biller_frequencies,
   agent_details,
   billing_plan_type,
   biller_contact,
@@ -48,13 +48,14 @@ export const addNewBiller = async (req, res) => {
       where: { source_of_bill_code },
     });
     const amountType = await currency.findOne({ where: { currency_code } });
-    const billFrequency = await biller_frequency.findOne({
+    const billFrequency = await biller_frequencies.findOne({
       where: { frequency_code },
     });
     let agentId;
     if (agent_id) {
       agentId = await agent_details.findOne({ where: { agent_id } });
     }
+    console.log(req.body);
 
     if (
       !billCategory ||

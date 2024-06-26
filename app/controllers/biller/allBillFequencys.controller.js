@@ -1,9 +1,9 @@
 import { models } from "../../models/index.js";
-const { biller_frequency } = models;
+const { biller_frequencies } = models;
 
 export const allBillFequencys = async (req, res) => {
   try {
-    const billFequencys = await biller_frequency.findAll({
+    const billFequencys = await biller_frequencies.findAll({
       attributes: ["frequency_code", "frequency_description"],
     });
     return res.status(200).json({
