@@ -34,6 +34,9 @@ import { billing_plan_type } from "./billing_plan_type.model.js";
 import { cust_type_menu } from "./cust_type_menu.model.js";
 import { dashboard_menus } from "./dashboard_meuns.model.js";
 import { menu_elements } from "./menu_elements.model.js";
+import { biller_cycle_details } from "./biller_cycle_details.model.js";
+import { biller_cycle_log } from "./biller_cycle_log.model.js";
+
 
 export const models = {
   agent_biller_details,
@@ -74,6 +77,8 @@ export const models = {
   pay_authority,
   payment_methods,
   payment_txn,
+  biller_cycle_details,
+  biller_cycle_log
 };
 
 //Dictates whether tables are modified or not;
