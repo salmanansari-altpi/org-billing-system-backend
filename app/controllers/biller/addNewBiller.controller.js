@@ -16,14 +16,12 @@ const {
 export const addNewBiller = async (req, res) => {
   try {
     const {
-      biller_code,
       customer_type,
       currency_code,
       source_of_bill_code,
       billing_plan_type_code,
       frequency_code,
       agent_id,
-
       biller_name,
       address_1,
       city,
@@ -33,6 +31,22 @@ export const addNewBiller = async (req, res) => {
       mobile_no_1,
       email_1,
     } = req.body;
+
+    let biller_code;
+
+    const billerInfo = await biller.findOne({
+      raw: true,
+      where: {
+        biller_code: biller_name,
+      },
+    });
+
+    if (billerInfo) {
+      const maxBillerId = await biller.max("biller_id");
+      biller_code = biller_name + (+maxBillerId + 1);
+    } else {
+      biller_code = biller_name;
+    }
 
     const billCategory = await biller_category_master.findOne({
       where: { customer_type },
@@ -88,9 +102,9 @@ export const addNewBiller = async (req, res) => {
         {
           biller_code,
           biller_name,
-          biller_category: billCategory.id,
+          biller_category: billCategory.customer_type,
           country_id: country_id.country_id,
-          source_of_bill_file: sourceOfBill.source_of_bill_id,
+          source_of_bill_file: sourceOfBill.source_of_bill_code,
           bill_currency_id: amountType.bill_amount_id,
           bill_freq_id: billFrequency.bill_freq_id,
           agent_id: agentId?.agent_id || "",
