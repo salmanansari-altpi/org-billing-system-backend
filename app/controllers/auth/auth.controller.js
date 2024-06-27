@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import { models } from "../../models/index.js";
 
 import { otps, veriedMobileNos } from "../../../index.js";
+import { Op } from "sequelize";
 const { customer, dashboard_menus, menu_elements, user_master } = models;
 
 export const generateOTP = async (req, res) => {
