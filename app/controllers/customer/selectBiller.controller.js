@@ -77,9 +77,13 @@ export const saveCrefAndValidate = async (req, res) => {
     });
     console.log(findBiler_bills, "fsjskudhoh");
     if (!findBiler_bills) {
-     return res
-        .status(404)
-        .json({ success: false, message: "Customer Account No Went Wrong!" });
+      return res
+        .status(200)
+        .json({
+          success: false,
+          code: 200,
+          message: "Customer Account No Went Wrong!",
+        });
     }
     // save as cross ref
     const finduserref = await customer_biller_cref.findOne({
