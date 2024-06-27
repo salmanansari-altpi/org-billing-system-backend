@@ -1,3 +1,4 @@
+import { where } from "sequelize";
 import { models } from "../../models/index.js";
 const { agent_details } = models;
 
@@ -37,6 +38,16 @@ export const createAgent = async (req, res) => {
       account_no,
       password,
     } = req.body;
+
+    const mobileNoExists = await agent_details.findOne({
+      where: { mobile_no: mobile_no },
+    });
+
+    if (mobileNoExists) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Mobile Number Already Exists" });
+    }
     await agent_details.create({
       agent_name: agent_name,
       agent_type: agent_type,
