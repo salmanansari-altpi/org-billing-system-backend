@@ -37,7 +37,6 @@ import { menu_elements } from "./menu_elements.model.js";
 import { biller_cycle_details } from "./biller_cycle_details.model.js";
 import { biller_cycle_log } from "./biller_cycle_log.model.js";
 
-
 export const models = {
   agent_biller_details,
   agent_details,
@@ -45,6 +44,7 @@ export const models = {
   biller_bills,
   biller_category_master,
   biller_contact,
+  biller_cycle_details,
   bill_frequency,
   billing_plan_type,
   country,
@@ -78,7 +78,7 @@ export const models = {
   payment_methods,
   payment_txn,
   biller_cycle_details,
-  biller_cycle_log
+  biller_cycle_log,
 };
 
 //Dictates whether tables are modified or not;
