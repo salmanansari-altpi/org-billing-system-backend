@@ -14,6 +14,8 @@ import {
   allBillerInfo,
   notIntegratedBillerInfo,
 } from "../../controllers/biller/allBillerInfo.controller.js";
+import { billerIntegration } from "../../controllers/Integration/integration.controller.js";
+import { fileFormat } from "../../controllers/biller/fileExtension.controller.js";
 import { generateBillerCycle } from "../../controllers/biller/generateBillerCycle.js";
 import { allFileLocation } from "../../controllers/biller/allFileLocation.controller.js";
 
@@ -29,6 +31,9 @@ router.route("/allsourceofbills").get(allSourceOfBill);
 router.route("/addnewbiller").post(addNewBiller);
 router.route("/uploadBill").post(uploadBillFile);
 router.get("/getPlanType", billerPlanType);
+
+router.route("/integration").post(billerIntegration);
+router.route("/file-format").get(fileFormat);
 
 router.route("/generatebillercycle").post(generateBillerCycle);
 

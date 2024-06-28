@@ -156,7 +156,7 @@ export const addNewBiller = async (req, res) => {
     } catch (error) {
       // Rollback the transaction if any operation fails
       await t.rollback();
-      console.warn("Transaction has been rolled back due to an error:", error);
+      console.warn("Transaction has been rolled back due to an error:", error.message);
       res.status(403).json({
         success: true,
         message: "Transaction has been rolled back due to an error",
