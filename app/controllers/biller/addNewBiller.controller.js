@@ -1,9 +1,12 @@
 import { connection } from "../../config/db.js";
 import { models } from "../../models/index.js";
+import fs from "fs";
+import path from "path";
 
 const {
   biller,
   biller_category_master,
+  folder_master,
   country,
   source_of_bill,
   currency,
@@ -33,19 +36,32 @@ export const addNewBiller = async (req, res) => {
     } = req.body;
 
     let biller_code;
+    const billerName = biller_name.slice(0, 4).toUpperCase();
 
     const billerInfo = await biller.findOne({
       raw: true,
       where: {
-        biller_code: biller_name,
+        biller_code: billerName,
       },
     });
 
     if (billerInfo) {
       const maxBillerId = await biller.max("biller_id");
-      biller_code = biller_name + (+maxBillerId + 1);
+      biller_code = billerName + (+maxBillerId + 1);
     } else {
-      biller_code = biller_name;
+      biller_code = billerName;
+    }
+
+    const dirPath = path.join("customer", biller_code);
+    try {
+      fs.mkdirSync(dirPath, { recursive: true });
+      console.log("Directory created successfully");
+    } catch (err) {
+      console.error("Error creating directory", err);
+      return res.status(404).json({
+        success: false,
+        message: "error in creating file location",
+      });
     }
 
     const billCategory = await biller_category_master.findOne({
@@ -107,8 +123,9 @@ export const addNewBiller = async (req, res) => {
           source_of_bill_file: sourceOfBill.source_of_bill_code,
           bill_currency_id: amountType.bill_amount_id,
           bill_freq_id: billFrequency.bill_freq_id,
-          agent_id: agentId?.agent_id || "",
+          agent_id: agentId?.agent_id || null,
           billing_plan_type_id: billPlan.billing_plan_type_id,
+          bill_currency_id: country_id.country_id,
         },
         { Transaction: t }
       );
@@ -126,6 +143,11 @@ export const addNewBiller = async (req, res) => {
         },
         { Transaction: t }
       );
+
+      await folder_master.create({
+        location_of_file: dirPath,
+      });
+
       res.status(200).json({
         success: true,
         message: "Biller added successfully",

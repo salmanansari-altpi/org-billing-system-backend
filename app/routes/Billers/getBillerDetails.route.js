@@ -10,11 +10,17 @@ import { addNewBiller } from "../../controllers/biller/addNewBiller.controller.j
 import { uploadBillFile } from "../../controllers/biller/uploadBillFile.controller.js";
 import { billerPlanType } from "../../controllers/biller/billerPlanType.controller.js";
 import { allSourceOfBill } from "../../controllers/biller/allSourceOfBill.controller.js";
-import { allBillerInfo } from "../../controllers/biller/allBillerInfo.controller.js";
+import {
+  allBillerInfo,
+  notIntegratedBillerInfo,
+} from "../../controllers/biller/allBillerInfo.controller.js";
 import { generateBillerCycle } from "../../controllers/biller/generateBillerCycle.js";
+import { allFileLocation } from "../../controllers/biller/allFileLocation.controller.js";
 
 router.route("/allcategory").get(getAllBillerCategory);
 router.route("/allbiller").get(allBillerInfo);
+router.route("/allnotintegratedbiller").get(notIntegratedBillerInfo);
+router.route("/alllocationfile").get(allFileLocation);
 
 router.route("/allcurrencydetails").get(allCurrency);
 router.route("/allcountrydetails").get(countryDetails);
