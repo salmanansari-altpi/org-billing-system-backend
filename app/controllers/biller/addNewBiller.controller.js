@@ -23,7 +23,6 @@ export const addNewBiller = async (req, res) => {
       billing_plan_type_code,
       frequency_code,
       agent_id,
-
       biller_name,
       address_1,
       city,
@@ -93,7 +92,7 @@ export const addNewBiller = async (req, res) => {
           source_of_bill_file: sourceOfBill.source_of_bill_id,
           bill_currency_id: amountType.bill_amount_id,
           bill_freq_id: billFrequency.bill_freq_id,
-          agent_id: agentId?.agent_id || "",
+          agent_id: agentId?.agent_id || null,
           billing_plan_type_id: billPlan.billing_plan_type_id,
         },
         { Transaction: t }
@@ -120,7 +119,7 @@ export const addNewBiller = async (req, res) => {
     } catch (error) {
       // Rollback the transaction if any operation fails
       await t.rollback();
-      console.warn("Transaction has been rolled back due to an error:", error);
+      console.warn("Transaction has been rolled back due to an error:", error.message);
       res.status(403).json({
         success: true,
         message: "Transaction has been rolled back due to an error",

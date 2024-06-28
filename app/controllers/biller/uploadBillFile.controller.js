@@ -47,7 +47,7 @@ const deleteFileAfter3days = (filePath) => {
 export const uploadBillFile =  async (req, res) => {       
 upload(req, res, async(err)=>{
 
-    if (err) {
+    if (err) {  
         return res.status(500).json({error:err.message});
       }
       try {
