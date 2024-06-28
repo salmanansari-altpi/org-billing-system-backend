@@ -1,5 +1,7 @@
 import { models } from "../../models/index.js";
+import { models } from "../../models/index.js";
 
+const { billerDetails, biller_bills } = models;
 const { billerDetails, biller_bills, biller } = models;
 import multer from "multer";
 import XLSX from "xlsx";
@@ -8,7 +10,6 @@ import { parseString } from "xml2js";
 import path from "path";
 import fs from "fs";
 import cron from "node-cron";
-import { where } from "sequelize";
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage }).single("file");
@@ -37,6 +38,7 @@ const deleteFileAfter3days = (filePath) => {
       fs.unlinkSync(filePath);
       console.log(`Deleted file: ${filePath}`);
     }
+  }, 3 * 24 * 60 * 60 * 1000); // 3days
   }, 3 * 24 * 60 * 60 * 1000); // 3days
 };
 
@@ -77,7 +79,30 @@ export const uploadBillFile = async (req, res) => {
         workbook.Sheets[sheetNameList[0]]
       );
       console.log(jsonData);
+      return res.status(500).json({ error: err.message });
+    }
+    try {
+      const { billerCode } = req.body;
+      const newDate = new Date().toDateString();
+      const filePath = path.join("upload", `${billerCode}${newDate}.xlsx`);
+      fs.writeFileSync(filePath, req.file.buffer);
+      const workbook = XLSX.read(req.file.buffer, { type: "buffer" });
+      const sheetNameList = workbook.SheetNames;
+      const jsonData = XLSX.utils.sheet_to_json(
+        workbook.Sheets[sheetNameList[0]]
+      );
 
+      try {
+        // Delete existing records for the same customers
+        const customerAccountNumbers = jsonData.map(
+          (d) => d.biller_customer_account_no
+        );
+        await biller_bills.destroy({
+          where: {
+            biller_customer_account_no: customerAccountNumbers,
+            biller_code: billerCode,
+          },
+        });
       try {
         // Delete existing records for the same customers
         const customerAccountNumbers = jsonData.map(
@@ -120,6 +145,7 @@ export const uploadBillFile = async (req, res) => {
         return res.status(200).json({
           sucess: true,
         });
+        });
       } catch (error) {
         console.error("Error saving bill data:", error);
         return res
@@ -127,6 +153,12 @@ export const uploadBillFile = async (req, res) => {
           .send(`Error uploading the file. ${error.message}`);
       }
       //  return res.json(jsonData);
+    } catch (error) {
+      console.error("Error storing file in the database:", error);
+      return res.status(500).send("Error uploading the file.");
+    }
+  });
+};
     } catch (error) {
       console.error("Error storing file in the database:", error);
       return res.status(500).send("Error uploading the file.");

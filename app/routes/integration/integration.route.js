@@ -1,20 +1,19 @@
 import express from "express";
 const router = express.Router();
-
-//switch
+import { partnerBank } from "../../controllers/Integration/partnerbank.controller.js";
+import { getAllpartnerBanks } from "../../controllers/Integration/getPartnerBankData.controller.js";
 import { createSwitch } from "../../controllers/Integration/createSwitch.controller.js";
 import { getAllSwitchData } from "../../controllers/Integration/getSwitchData.controller.js";
+import { readPayAuthority } from "../../controllers/Integration/readPayAuthority.controller.js";
+import { getProducts } from "../../controllers/Integration/product.controller.js";
+
 router.route("/createswitch").post(createSwitch);
 router.route("/getswitchdata").get(getAllSwitchData);
 
-//partnerBAnk
-import { partnerBank } from "../../controllers/Integration/partnerbank.controller.js";
-import { getAllpartnerBanks } from "../../controllers/Integration/getPartnerBankData.controller.js";
 router.route("/createpartnerBank").post(partnerBank);
 router.route("/getPartnerBank").get(getAllpartnerBanks);
 
-
-
-
+router.route("/payauthority").get(readPayAuthority);
+router.route("/product").get(getProducts);
 
 export default router;
