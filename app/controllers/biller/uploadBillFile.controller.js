@@ -1,6 +1,6 @@
 import { models } from "../../models/index.js";
 
-const { billerDetails, biller_bills } = models;
+const { billerDetails, biller_bills, biller } = models;
 import multer from "multer";
 import XLSX from "xlsx";
 import csv from "csv-parser";
@@ -8,6 +8,7 @@ import { parseString } from "xml2js";
 import path from "path";
 import fs from "fs";
 import cron from "node-cron";
+import { where } from "sequelize";
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage }).single("file");
@@ -43,20 +44,39 @@ const deleteFileAfter3days = (filePath) => {
 
 export const uploadBillFile = async (req, res) => {
   upload(req, res, async (err) => {
-    console.log(req.file);
     if (err) {
       return res.status(500).json({ error: err.message });
     }
     try {
+      if (!req.file) {
+        return res
+          .status(203)
+          .json({ sucess: false, data: "File Not Uploaded " });
+      }
       const { billerCode } = req.body;
+      const { location_of_bill_file } = await biller.findOne({
+        raw: true,
+        where: { biller_code: billerCode },
+        attributes: ["location_of_bill_file"],
+      });
+      if (!location_of_bill_file) {
+        return res
+          .status(203)
+          .json({ sucess: false, data: "location of file not define " });
+      }
+      console.log(location_of_bill_file);
       const newDate = new Date().toDateString();
-      const filePath = path.join("upload", `${billerCode}${newDate}.xlsx`);
+      const filePath = path.join(
+        `${location_of_bill_file}`,
+        `${billerCode}${newDate}.xlsx`
+      );
       fs.writeFileSync(filePath, req.file.buffer);
       const workbook = XLSX.read(req.file.buffer, { type: "buffer" });
       const sheetNameList = workbook.SheetNames;
       const jsonData = XLSX.utils.sheet_to_json(
         workbook.Sheets[sheetNameList[0]]
       );
+      console.log(jsonData);
 
       try {
         // Delete existing records for the same customers
@@ -72,23 +92,29 @@ export const uploadBillFile = async (req, res) => {
 
         // Insert new records
         for (const d of jsonData) {
-          await biller_bills.create({
-            biller_id: d.biller_id,
-            biller_code: billerCode,
-            biller_customer_account_no: d.biller_customer_account_no,
-            biller_bill_no: d.biller_bill_no,
-            biller_customer_name: d.biller_customer_name,
-            biller_bill_date: d.biller_bill_date,
-            biller_bill_amount: d.biller_bill_amount,
-            biller_other_charges: d.biller_other_charges,
-            biller_taxes: d.biller_taxes,
-            biller_pending_due: d.biller_pending_due,
-            biller_total_amount_due: d.biller_total_amount_due,
-            last_meter_reading: d.last_meter_reading,
-            current_meter_reading: d.current_meter_reading,
-            units_consumed: d.units_consumed,
-            reading_date: d.reading_date,
-          });
+          if(d&&
+            d.biller_bill_amount!=""&&d.biller_customer_account_no!="" 
+          ){
+
+
+            await biller_bills.create({
+              biller_id: d.biller_id,
+              biller_code: billerCode,
+              biller_customer_account_no: d.biller_customer_account_no,
+              biller_bill_no: d.biller_bill_no,
+              biller_customer_name: d.biller_customer_name,
+              biller_bill_date: d.biller_bill_date,
+              biller_bill_amount: d.biller_bill_amount,
+              biller_other_charges: d.biller_other_charges,
+              biller_taxes: d.biller_taxes,
+              biller_pending_due: d.biller_pending_due,
+              biller_total_amount_due: d.biller_total_amount_due,
+              last_meter_reading: d.last_meter_reading,
+              current_meter_reading: d.current_meter_reading,
+              units_consumed: d.units_consumed,
+              reading_date: d.reading_date,
+            });
+          }
         }
         deleteFileAfter3days(filePath);
         return res.status(200).json({
