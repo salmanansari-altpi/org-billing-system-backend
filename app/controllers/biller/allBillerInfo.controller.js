@@ -1,3 +1,4 @@
+import { where } from "sequelize";
 import { models } from "../../models/index.js";
 
 const { biller, prod_integration } = models;
@@ -41,23 +42,25 @@ export const notIntegratedBillerInfo = async (req, res) => {
       ],
     });
 
+    const allBillers = [];
+    await allBiller.forEach(async(element) => {
+      let user = await prod_integration.findOne({where:{biller_code:element.biller_code}});
+      if(!user){
+        allBillers.push(element);
+      }
+      
+    });
     const integratedBiller = await prod_integration.findAll({
       raw: true,
       attributes: ["biller_code"],
     });
 
-    allBiller.map((biller) => {
-      integratedBiller.find((inbiller) => {
-        if (inbiller.biller_code !== biller.biller_code) {
-          return biller;
-        }
-      });
-    });
+    
 
     return res.status(200).json({
       success: true,
       data: {
-        allBiller,
+        allBiller:allBillers,
       },
     });
   } catch (error) {
