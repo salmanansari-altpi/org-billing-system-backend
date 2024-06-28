@@ -11,6 +11,7 @@ export const fileFormat = async (req, res) => {
       attributes: ["source_of_bill_file"],
       where: { biller_code },
     });
+    console.log(biller_code,source_of_bill_file);
     res.status(200).json({ success: true, data: source_of_bill_file });
   } catch (err) {
     console.log("Error while checking format:- ", err);

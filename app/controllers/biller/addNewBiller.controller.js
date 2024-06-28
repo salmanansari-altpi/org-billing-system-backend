@@ -36,7 +36,7 @@ export const addNewBiller = async (req, res) => {
     } = req.body;
 
     let biller_code;
-    const billerName = biller_name.slice(0, 4).toUpperCase();
+    const billerName = biller_name.replace(/\s/g, "").slice(0, 4).toUpperCase();
 
     const billerInfo = await biller.findOne({
       raw: true,

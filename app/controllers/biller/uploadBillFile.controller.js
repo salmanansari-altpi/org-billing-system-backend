@@ -54,10 +54,10 @@ export const uploadBillFile = async (req, res) => {
           .json({ sucess: false, data: "File Not Uploaded " });
       }
       const { billerCode } = req.body;
-      const { location_of_bill_file } = await biller.findOne({
+      const { location_of_bill_file ,biller_id} = await biller.findOne({
         raw: true,
         where: { biller_code: billerCode },
-        attributes: ["location_of_bill_file"],
+        attributes: ["location_of_bill_file","biller_id"],
       });
       if (!location_of_bill_file) {
         return res
@@ -98,7 +98,7 @@ export const uploadBillFile = async (req, res) => {
 
 
             await biller_bills.create({
-              biller_id: d.biller_id,
+              biller_id: biller_id,
               biller_code: billerCode,
               biller_customer_account_no: d.biller_customer_account_no,
               biller_bill_no: d.biller_bill_no,
