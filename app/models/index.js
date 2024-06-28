@@ -36,6 +36,7 @@ import { dashboard_menus } from "./dashboard_meuns.model.js";
 import { menu_elements } from "./menu_elements.model.js";
 import { biller_cycle_details } from "./biller_cycle_details.model.js";
 import { biller_cycle_log } from "./biller_cycle_log.model.js";
+import { folder_master } from "./folder_master.model.js";
 
 export const models = {
   agent_biller_details,
@@ -79,6 +80,7 @@ export const models = {
   payment_txn,
   biller_cycle_details,
   biller_cycle_log,
+  folder_master,
 };
 
 //Dictates whether tables are modified or not;
