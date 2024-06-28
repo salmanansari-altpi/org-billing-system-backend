@@ -97,7 +97,7 @@ export const addNewBiller = async (req, res) => {
     ) {
       return res.status(404).json({
         success: false,
-        message: `Invalid  data`,
+        message: "all fields are required",
         data: {
           billCategory,
           country_id,
