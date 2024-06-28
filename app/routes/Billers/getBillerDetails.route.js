@@ -18,11 +18,14 @@ import { billerIntegration } from "../../controllers/Integration/integration.con
 import { fileFormat } from "../../controllers/biller/fileExtension.controller.js";
 import { generateBillerCycle } from "../../controllers/biller/generateBillerCycle.js";
 import { allFileLocation } from "../../controllers/biller/allFileLocation.controller.js";
+import { updateTechnicalInfo } from "../../controllers/biller/updateBiller.controller.js";
 
 router.route("/allcategory").get(getAllBillerCategory);
 router.route("/allbiller").get(allBillerInfo);
 router.route("/allnotintegratedbiller").get(notIntegratedBillerInfo);
 router.route("/alllocationfile").get(allFileLocation);
+
+router.route("/updatetechinfo").post(updateTechnicalInfo);
 
 router.route("/allcurrencydetails").get(allCurrency);
 router.route("/allcountrydetails").get(countryDetails);
