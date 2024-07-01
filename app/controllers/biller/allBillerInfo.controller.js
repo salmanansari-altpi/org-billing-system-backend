@@ -43,24 +43,61 @@ export const notIntegratedBillerInfo = async (req, res) => {
     });
 
     const allBillers = [];
-    await allBiller.forEach(async(element) => {
-      let user = await prod_integration.findOne({where:{biller_code:element.biller_code}});
-      if(!user){
+    for (const element of allBiller) {
+      const user = await prod_integration.findOne({ where: { biller_code: element.biller_code } });
+      if (!user) {
         allBillers.push(element);
       }
-      
-    });
+    }
+
     const integratedBiller = await prod_integration.findAll({
       raw: true,
       attributes: ["biller_code"],
     });
 
-    
+    return res.status(200).json({
+      success: true,
+      data: {
+        allBiller: allBillers,
+      },
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "internal server error",
+    });
+  }
+};
+
+
+export const integratedBillerInfo = async (req, res) => {
+  try {
+    //! finding all biller information
+    const allBiller = await biller.findAll({
+      raw: true,
+      attributes: [
+        "biller_code",
+        "biller_status",
+        "biller_name",
+        "biller_category",
+      ],
+    });
+
+    const allBillers = [];
+    for (const element of allBiller) {
+      const user = await prod_integration.findOne({ where: { biller_code: element.biller_code } });
+      if (user) {
+        console.log(user);
+        allBillers.push(element);
+      }
+    }
+
+    console.log(allBillers);
 
     return res.status(200).json({
       success: true,
       data: {
-        allBiller:allBillers,
+        allBiller: allBillers,
       },
     });
   } catch (error) {

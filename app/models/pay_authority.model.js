@@ -6,9 +6,8 @@ export const pay_authority = connection.define(
     {
       payAuthority_id: {
       type: DataTypes.INTEGER(11),
-      autoIncrement:true,
-      allowNull: true,
-      primaryKey: true
+      autoIncrement: true,
+      primaryKey: true,
     },
     payAuthority_code: {
       type: DataTypes.STRING(4),
