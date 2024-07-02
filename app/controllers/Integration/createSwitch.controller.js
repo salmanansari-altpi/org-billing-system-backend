@@ -8,6 +8,7 @@ export const createSwitch = async(req, res) => {
             switch_name,
             switch_status,   //1 - Live | 2 - Suspended | 3 - Test |8 - Boarded|9 - Deleted
             switch_note}= req.body;
+            console.log(req.body);
 
         await switch_master.create({switch_code: switch_code,
             switch_name:switch_name,

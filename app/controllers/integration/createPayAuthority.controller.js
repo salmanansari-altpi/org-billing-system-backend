@@ -8,15 +8,18 @@ export const createPayAuthority = async (req, res) => {
         const {
             // payAuthority_id,
             payAuthority_code,
-            payAuthority_description,
+            // payAuthority_description,
+            payAuthority_name,
             payAuthority_note,
             payAuthority_status,  //1 - Live | 2 - Suspended | 3 - Test |8 - Boarded|9 - Deleted
         } = req.body;
+        console.log(req.body);
 
             await pay_authority.create(
                 { 
                 payAuthority_code:payAuthority_code,
-                payAuthority_description:payAuthority_description,
+                payAuthority_description:payAuthority_name,
+              
                 payAuthority_note:payAuthority_note,
                 payAuthority_status:payAuthority_status 
             }

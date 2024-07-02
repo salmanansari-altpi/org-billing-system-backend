@@ -33,57 +33,63 @@ export const biller_bills = connection.define(
       allowNull: true,
     },
     biller_bill_date: {
-      type: DataTypes.DATE,
+      type: DataTypes.STRING(15),
       allowNull: true,
     },
     biller_bill_amount: {
-      type: DataTypes.DECIMAL(12, 2),
+      type: DataTypes.STRING(20),
       allowNull: true,
     },
     biller_other_charges: {
-      type: DataTypes.DECIMAL(12, 2),
+      type: DataTypes.STRING(20),
       allowNull: true,
     },
     biller_taxes: {
-      type: DataTypes.DECIMAL(12, 2),
+      type: DataTypes.STRING(20),
       allowNull: true,
     },
     biller_pending_due: {
-      type: DataTypes.DECIMAL(12, 2),
+      type: DataTypes.STRING(20),
       allowNull: true,
     },
     biller_total_amount_due: {
-      type: DataTypes.DECIMAL(12, 2),
+      type: DataTypes.STRING(20),
       allowNull: true,
     },
     last_meter_reading: {
-      type: DataTypes.DECIMAL(14, 2),
+      type: DataTypes.STRING(20),
       allowNull: true,
     },
     current_meter_reading: {
-      type: DataTypes.DECIMAL(14, 2),
+      type: DataTypes.STRING(20),
       allowNull: true,
     },
     units_consumed: {
-      type: DataTypes.DECIMAL(14, 2),
+      type: DataTypes.STRING(20),
       allowNull: true,
     },
     reading_date: {
-      type: DataTypes.DATE,
+      type: DataTypes.STRING(15),
       allowNull: true,
     },
+    due_date:{
+      type: DataTypes.STRING(15),
+      allowNull: true,
+    },
+    
     paid_indicator: {
       type: DataTypes.STRING(1),
       allowNull: true,
     },
     paid_amount: {
-      type: DataTypes.DECIMAL(12, 2),
+      type: DataTypes.STRING(20),
       allowNull: true,
     },
     paid_date: {
-      type: DataTypes.DATE,
+      type: DataTypes.STRING(15),
       allowNull: true,
     },
+
   
   },
   {

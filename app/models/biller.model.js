@@ -11,7 +11,7 @@ export const biller = connection.define(
       allowNull: true,
     },
     biller_code: {
-      type: DataTypes.STRING(18),
+      type: DataTypes.STRING(10),
       allowNull: false,
       unique: true,
     },
@@ -64,7 +64,7 @@ export const biller = connection.define(
       allowNull: true,
     },
     location_of_bill_file: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.STRING(100),
       allowNull: true,
     },
     source_of_bill_file: {

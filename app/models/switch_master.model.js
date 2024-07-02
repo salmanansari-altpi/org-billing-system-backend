@@ -15,7 +15,7 @@ export const switch_master = connection.define(
       unique: true,
     },
     switch_name: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.STRING(50),
       allowNull: true,
     },
     switch_status: {
