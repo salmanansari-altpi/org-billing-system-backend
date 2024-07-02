@@ -7,7 +7,7 @@ import { allCurrency } from "../../controllers/biller/allCurrencys.controller.js
 import { countryDetails } from "../../controllers/biller/allCountryDetails.controller.js";
 import { allBillFequencys } from "../../controllers/biller/allBillFequencys.controller.js";
 import { addNewBiller } from "../../controllers/biller/addNewBiller.controller.js";
-import { uploadBillFile } from "../../controllers/biller/uploadBillFile.controller.js";
+import { callApi, uploadBillFile } from "../../controllers/biller/uploadBillFile.controller.js";
 import { billerPlanType } from "../../controllers/biller/billerPlanType.controller.js";
 import { allSourceOfBill } from "../../controllers/biller/allSourceOfBill.controller.js";
 import {
@@ -42,5 +42,5 @@ router.route("/integration").post(billerIntegration);
 router.route("/file-format").get(fileFormat);
 
 router.route("/generatebillercycle").post(generateBillerCycle);
-
+router.route("/fetch-data-from-api").post(callApi);
 export default router;
