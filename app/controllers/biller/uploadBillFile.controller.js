@@ -35,7 +35,7 @@ const deleteFileAfter3days = (filePath) => {
   setTimeout(() => {
     if (fs.existsSync(filePath)) {
       fs.unlinkSync(filePath);
-      console.log(`Deleted file: ${filePath}`);
+     
     }
   },  60 * 1000); // 3days
 };
@@ -75,7 +75,8 @@ export const uploadBillFile = async (req, res) => {
           .status(203)
           .json({ sucess: false, data: "location of file not define " });
       }
-      console.log(location_of_bill_file);
+  
+
       const newDate = new Date().toDateString();
       const filePath = path.join(
         `${location_of_bill_file}`,
@@ -88,7 +89,7 @@ export const uploadBillFile = async (req, res) => {
         workbook.Sheets[sheetNameList[0]],
         jsonOpts
       );
-      console.log(jsonData, "---------------------------");
+     
 
       try {
         // Delete existing records for the same customers
@@ -110,7 +111,7 @@ export const uploadBillFile = async (req, res) => {
             d.biller_bill_amount != "" &&
             d.biller_customer_account_no != ""
           ) {
-            // console.log(d);
+          
 
             await biller_bills.create({
               biller_id: biller_id,
@@ -137,14 +138,14 @@ export const uploadBillFile = async (req, res) => {
           sucess: true,
         });
       } catch (error) {
-        console.error("Error saving bill data:", error.message);
+      
         return res
           .status(500)
           .send(`Error uploading the file. ${error.message}`);
       }
       //  return res.json(jsonData);
     } catch (error) {
-      console.error("Error storing file in the database:", error);
+      
       return res.status(500).send("Error uploading the file.");
     }
   });
@@ -153,7 +154,7 @@ export const uploadBillFile = async (req, res) => {
 
 export const callApi = async (req, res) => {
   const { billerCode } = req.body;
-  console.log(req.body);
+
   try {
     // Retrieve biller information
     const { location_of_bill_file, biller_id } = await biller.findOne({
@@ -207,7 +208,7 @@ export const callApi = async (req, res) => {
     });
 
   } catch (error) {
-    console.error('Error occurred:', error);
+
     return res.status(500).json({
       success: false,
       data: "Internal server error",

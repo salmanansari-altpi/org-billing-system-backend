@@ -13,8 +13,7 @@ export const createPayAuthority = async (req, res) => {
             payAuthority_note,
             payAuthority_status,  //1 - Live | 2 - Suspended | 3 - Test |8 - Boarded|9 - Deleted
         } = req.body;
-        console.log(req.body);
-
+        
             await pay_authority.create(
                 { 
                 payAuthority_code:payAuthority_code,
@@ -28,6 +27,10 @@ export const createPayAuthority = async (req, res) => {
             // res.status(200).json({success:true,msg:'Pay Authority created Successfully!',data:records })
     }
     catch (error) {
-        console.log(error);
+        return res.status(400).json({
+            success: false,
+            message: "Unable to create "
+        })
+     
     }
 };
