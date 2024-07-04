@@ -90,6 +90,7 @@ export const generateQrforBill = async (req, res) => {
     const { id } = req.user;
     const { biller_code, biller_customer_account_no, biller_bill_no } =
       req.body;
+    console.log(req.body, "------------------");
     if (!biller_code || !biller_customer_account_no) {
       return res
         .status(500)

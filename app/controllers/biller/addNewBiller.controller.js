@@ -167,6 +167,6 @@ export const addNewBiller = async (req, res) => {
     console.log(error.message);
     return res
       .status(404)
-      .json({ success: false, message: "internal error", data: null });
+      .json({ success: false, message: "internal error", error });
   }
 };
