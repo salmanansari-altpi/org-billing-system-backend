@@ -10,6 +10,7 @@ import {
 } from "../../controllers/customer/customer.controller.js";
 import {
   getBillersByCategory,
+  payAndValidate,
   saveCrefAndValidate,
 } from "../../controllers/customer/selectBiller.controller.js";
 import { verifyOTPToken } from "../../middlewares/verifyOtp.middleware.js";
@@ -22,6 +23,7 @@ router
   .route("/billerValidate")
   .get(getBillersByCategory)
   .post(verifyOTPToken, saveCrefAndValidate);
+router.route("/billerValidatePay").post(verifyOTPToken,payAndValidate)
 router.route("/generateQR").post(verifyOTPToken, generateQrforBill);
 
 export default router;

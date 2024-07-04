@@ -101,7 +101,8 @@ export const customerSignIn = async (req, res) => {
     const token = jwt.sign({ id: mobileNo }, process.env.JWT_SECRET, {
       expiresIn: "10d",
     });
-    res.status(200).json({ success: true, token });
+    res.status(200).json({ success: true, token,data:{  "cust_last_name": userExist.cust_last_name,
+      "cust_first_name": userExist.cust_first_name,} });
   } catch (err) {
     res.status(500).json({ success: true, message: "Something Went Wrong!" });
   }
