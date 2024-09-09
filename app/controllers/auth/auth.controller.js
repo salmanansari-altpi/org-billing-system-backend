@@ -8,7 +8,6 @@ const { customer, dashboard_menus, menu_elements, user_master } = models;
 export const generateOTP = async (req, res) => {
   try {
     const { mobileNo } = req.body;
-    console.log(mobileNo, 'ejfiorehoioihrioowejooj');
     if (!mobileNo) {
       return res
         .status(400)
@@ -41,6 +40,8 @@ export const verifyOTP = async (req, res) => {
     let { id: mobileNo } = req.user;
 
     const verify = otps.find((data) => data.mobileNo === mobileNo);
+    console.log(verify, "-------------------");
+
     const now = new Date();
     const threshold = new Date(now.getMinutes() - 5 * 60 * 1000);
     if (verify?.time <= threshold) {
@@ -99,7 +100,7 @@ export const signup = async (req, res) => {
 
 export const signin = async (req, res) => {
   try {
-    console.log('uewfhoiuheuioh');
+    console.log("uewfhoiuheuioh");
     const { email, password } = req.body;
     console.log(email);
     let user = await user_master.findOne({

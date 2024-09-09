@@ -15,6 +15,7 @@ import {
 } from "../../controllers/customer/selectBiller.controller.js";
 import { verifyOTPToken } from "../../middlewares/verifyOtp.middleware.js";
 const router = express.Router();
+
 router.route("/onBoardCustomer").post(verifyOTPToken, onBoardCustomer);
 router.route("/getCatagery").get(categary);
 router.route("/getbills").get(verifyOTPToken, getCustomerBills);

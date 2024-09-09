@@ -9,7 +9,6 @@ const { customer, customer_biller_cref, biller, biller_bills, currency } =
 export const getCustomerBills = async (req, res) => {
   try {
     const { id } = req.user;
-
     const customers = await customer.findOne({ where: { cust_mobile_no: id } });
 
     if (!customers) {
@@ -88,9 +87,11 @@ export const getCustomerBills = async (req, res) => {
 export const generateQrforBill = async (req, res) => {
   try {
     const { id } = req.user;
+    const txnId = 12345;
     const { biller_code, biller_customer_account_no, biller_bill_no } =
       req.body;
-    console.log(req.body, "------------------");
+    console.log(req.body, "-----------------");
+
     if (!biller_code || !biller_customer_account_no) {
       return res
         .status(500)
@@ -123,6 +124,7 @@ export const generateQrforBill = async (req, res) => {
     return res.status(200).json({
       success: true,
       data: intent,
+      txnId,
     });
     // generate QR code ---------- here
   } catch (err) {
