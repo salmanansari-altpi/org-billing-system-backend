@@ -5,7 +5,7 @@ import { registration_log_in } from "./registration_log_in.model.js";
 import { user_type_master } from "./user_type_master.model.js";
 import { agent_biller_details } from "./agent_biller_details.model.js";
 import { biller } from "./biller.model.js";
-import { biller_bills } from "./Biller_Bills.model.js";
+import { biller_bills } from "./biller_bills.model.js";
 import { biller_category_master } from "./biller_category_master.model.js";
 import { biller_contact } from "./biller_contact.model.js";
 import { bill_frequency } from "./bill_frequency.model.js";
