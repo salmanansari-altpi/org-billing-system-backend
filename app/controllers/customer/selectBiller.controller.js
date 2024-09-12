@@ -1,13 +1,12 @@
 import { where } from "sequelize";
 import { biller } from "../../models/biller.model.js";
-import { biller_bills } from "../../models/Biller_Bills.model.js";
+import { biller_bills } from "../../models/biller_bills.model.js";
 import { customer_biller_cref } from "../../models/customer_biller_cref.model.js";
 import { customer } from "../../models/customer.model.js";
 
 export const getBillersByCategory = async (req, res) => {
   try {
     const { category } = req.query;
-    console.log(category, "...........");
     const billers = await biller.findAll({
       where: { biller_category: category },
       attributes: ["biller_name", "biller_code"],
@@ -77,13 +76,11 @@ export const saveCrefAndValidate = async (req, res) => {
     });
     console.log(findBiler_bills, "fsjskudhoh");
     if (!findBiler_bills) {
-      return res
-        .status(200)
-        .json({
-          success: false,
-          code: 200,
-          message: "Customer Account No. Does Not Exist! Please Check. ",
-        });
+      return res.status(200).json({
+        success: false,
+        code: 200,
+        message: "Customer Account No. Does Not Exist! Please Check. ",
+      });
     }
     // save as cross ref
     const finduserref = await customer_biller_cref.findOne({
@@ -170,13 +167,11 @@ export const payAndValidate = async (req, res) => {
     });
     console.log(findBiler_bills, "fsjskudhoh");
     if (!findBiler_bills) {
-      return res
-        .status(200)
-        .json({
-          success: false,
-          code: 200,
-          message: "Customer Account No. Does Not Exist! Please Check.",
-        });
+      return res.status(200).json({
+        success: false,
+        code: 200,
+        message: "Customer Account No. Does Not Exist! Please Check.",
+      });
     }
     // save as cross ref
     const finduserref = await customer_biller_cref.findOne({
