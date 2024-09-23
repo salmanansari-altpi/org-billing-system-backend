@@ -37,7 +37,7 @@ export const onBoardCustomer = async (req, res) => {
     if (!email || !password || !firstName || !lastName) {
       return res
         .status(400)
-        .json({ success: true, message: "All Fields are Mandatory!" });
+        .json({ success: false, message: "All Fields are Mandatory!" });
     }
     const date = new Date();
     const data = await customer.create({
@@ -54,8 +54,8 @@ export const onBoardCustomer = async (req, res) => {
       .status(201)
       .json({ success: true, message: "User onboarded successfully!" });
   } catch (err) {
-    console.log("Error while onBoarding Customer:- ", err);
-    res.status(500).json({ success: true, message: "Something Went Wrong!" });
+    console.log("Error while onBoarding Customer:- ", err.message);
+    res.status(500).json({ success: false, message: "Something Went Wrong!" });
   }
 };
 
@@ -86,7 +86,7 @@ export const customerSignIn = async (req, res) => {
     if (!mobileNo || !password) {
       return res
         .status(400)
-        .json({ success: true, message: "All fields are mandatory!" });
+        .json({ success: false, message: "All fields are mandatory!" });
     }
 
     const userExist = await customer.findOne({
@@ -95,15 +95,23 @@ export const customerSignIn = async (req, res) => {
     if (!userExist) {
       return res
         .status(404)
-        .json({ success: true, message: "Invalid mobile or password!" });
+        .json({ success: false, message: "Invalid mobile or password!" });
     }
 
     const token = jwt.sign({ id: mobileNo }, process.env.JWT_SECRET, {
       expiresIn: "10d",
     });
-    res.status(200).json({ success: true, token,data:{  "cust_last_name": userExist.cust_last_name,
-      "cust_first_name": userExist.cust_first_name,} });
+    res.status(200).json({
+      success: true,
+      token,
+      data: {
+        cust_last_name: userExist.cust_last_name,
+        cust_first_name: userExist.cust_first_name,
+      },
+    });
   } catch (err) {
-    res.status(500).json({ success: true, message: "Something Went Wrong!" });
+    console.log("Error while signing in: ", err);
+
+    res.status(500).json({ success: false, message: err.message });
   }
 };

@@ -136,6 +136,7 @@ export const payAndValidate = async (req, res) => {
     }
     // find biller_customer_account_no in biller bills
     const findBiler_bills = await biller_bills.findOne({
+      raw: true,
       where: {
         biller_code: biller_code,
         biller_customer_account_no: biller_customer_account_no,
@@ -165,7 +166,11 @@ export const payAndValidate = async (req, res) => {
       order: [["createdAt", "DESC"]],
       attributes: ["biller_id"],
     });
-    console.log(findBiler_bills, "fsjskudhoh");
+    const biller_name = await biller.findOne({
+      raw: true,
+      attributes: ["biller_name"],
+      where: { biller_id: findBiler_bills_id.biller_id },
+    });
     if (!findBiler_bills) {
       return res.status(200).json({
         success: false,
@@ -196,7 +201,10 @@ export const payAndValidate = async (req, res) => {
     //   });
     // }
     //  await delete findBiler_bills.biller_id;
-    return res.json({ success: true, data: findBiler_bills });
+    const data = { ...findBiler_bills, biller_name: biller_name.biller_name };
+    console.log(data);
+
+    return res.json({ success: true, data });
   } catch (error) {
     return res.status(500).json({ success: false, message: error.message });
   }

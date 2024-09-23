@@ -11,7 +11,7 @@ export const generateOTP = async (req, res) => {
     if (!mobileNo) {
       return res
         .status(400)
-        .json({ success: true, message: "Enter the Mobile No!" });
+        .json({ success: false, message: "Enter the Mobile No!" });
     }
     const otp = Math.floor(1000 + Math.random() * 9000);
     const otpExistIndex = otps.findIndex((data) => data.mobileNo === mobileNo);
@@ -30,7 +30,7 @@ export const generateOTP = async (req, res) => {
     });
   } catch (err) {
     console.log("Error while generating OTP:-", err);
-    res.status(500).json({ success: true, message: "Something Went Wrong!" });
+    res.status(500).json({ success: false, message: "Something Went Wrong!" });
   }
 };
 
@@ -40,7 +40,6 @@ export const verifyOTP = async (req, res) => {
     let { id: mobileNo } = req.user;
 
     const verify = otps.find((data) => data.mobileNo === mobileNo);
-    console.log(verify, "-------------------");
 
     const now = new Date();
     const threshold = new Date(now.getMinutes() - 5 * 60 * 1000);
@@ -48,7 +47,7 @@ export const verifyOTP = async (req, res) => {
       return res.status(400).json({ success: false, message: "OTP Expired!" });
     }
     if (verify.otp != otp) {
-      return res.status(400).json({ success: true, message: "Invalid OTP" });
+      return res.status(400).json({ success: false, message: "Invalid OTP" });
     }
     const index = otps.findIndex((data) => data.mobileNo === mobileNo);
     if (index !== -1) {
@@ -61,7 +60,7 @@ export const verifyOTP = async (req, res) => {
     res.status(201).json({ success: true, message: "Valid OTP" });
   } catch (err) {
     console.log("Error while generating OTP:-", err);
-    res.status(500).json({ success: true, message: "Something Went Wrong!" });
+    res.status(500).json({ success: false, message: "Something Went Wrong!" });
   }
 };
 
@@ -73,7 +72,7 @@ export const signup = async (req, res) => {
     if (!fName || !lName || !password || !repassword) {
       return res
         .status(400)
-        .json({ success: true, message: "All fields are mandatory!" });
+        .json({ success: false, message: "All fields are mandatory!" });
     }
 
     const userExist = await customer.findOne({
@@ -83,18 +82,18 @@ export const signup = async (req, res) => {
     if (userExist) {
       return res
         .status(400)
-        .json({ success: true, message: "User already exists!" });
+        .json({ success: false, message: "User already exists!" });
     }
 
     if (password !== repassword) {
       return res.status(400).json({
-        success: true,
+        success: false,
         message: "Both the passwords should be same!",
       });
     }
   } catch (err) {
     console.log("Error while signing up:- ", err);
-    res.status(500).json({ success: true, message: "Something Went Wrong!" });
+    res.status(500).json({ success: false, message: "Something Went Wrong!" });
   }
 };
 
@@ -211,7 +210,7 @@ export const signin = async (req, res) => {
     });
     res.status(200).json({ success: true, data: { token, allMenus } });
   } catch (err) {
-    res.status(500).json({ success: true, message: err });
+    res.status(500).json({ success: false, message: err });
   }
 };
 
