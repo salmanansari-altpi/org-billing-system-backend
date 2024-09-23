@@ -90,7 +90,6 @@ export const generateQrforBill = async (req, res) => {
     const txnId = 12345;
     const { biller_code, biller_customer_account_no, biller_bill_no } =
       req.body;
-    console.log(req.body, "-----------------");
 
     if (!biller_code || !biller_customer_account_no) {
       return res
@@ -129,6 +128,6 @@ export const generateQrforBill = async (req, res) => {
     // generate QR code ---------- here
   } catch (err) {
     console.log("Error when generating QR Code:- ", err);
-    res.status(500).json({ success: false, message: "Something Went Wrong!" });
+    res.status(500).json({ success: false, message: err });
   }
 };
