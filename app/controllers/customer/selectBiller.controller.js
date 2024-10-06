@@ -3,6 +3,7 @@ import { biller } from "../../models/biller.model.js";
 import { biller_bills } from "../../models/biller_bills.model.js";
 import { customer_biller_cref } from "../../models/customer_biller_cref.model.js";
 import { customer } from "../../models/customer.model.js";
+import { raw } from "mysql2";
 
 export const getBillersByCategory = async (req, res) => {
   try {
@@ -22,7 +23,6 @@ export const getBillersByCategory = async (req, res) => {
 export const saveCrefAndValidate = async (req, res) => {
   try {
     const { id } = req.user;
-    console.log(id);
     const { biller_code, biller_customer_account_no } = req.body;
     if (!biller_code || !biller_customer_account_no) {
       return res
@@ -123,8 +123,10 @@ export const saveCrefAndValidate = async (req, res) => {
 export const payAndValidate = async (req, res) => {
   try {
     const { id } = req.user;
-    console.log(id);
+
     const { biller_code, biller_customer_account_no } = req.body;
+    console.log(biller_code, biller_customer_account_no);
+
     if (!biller_code || !biller_customer_account_no) {
       return res
         .status(400)
@@ -134,7 +136,6 @@ export const payAndValidate = async (req, res) => {
       raw: true,
       where: { cust_mobile_no: id },
     });
-    console.log(findBiller_customer, "fsjskudhoh");
     const findBiller = await biller.findOne({
       where: { biller_code: biller_code },
     });
@@ -169,6 +170,7 @@ export const payAndValidate = async (req, res) => {
       ],
     });
     const findBiler_bills_id = await biller_bills.findOne({
+      raw: true,
       where: {
         biller_code: biller_code,
         biller_customer_account_no: biller_customer_account_no,
@@ -216,6 +218,7 @@ export const payAndValidate = async (req, res) => {
 
     return res.json({ success: true, data });
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ success: false, message: error.message });
   }
 };

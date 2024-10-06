@@ -103,7 +103,7 @@ export const uploadBillFile = async (req, res) => {
 
         // Insert new records
         for (const d of jsonData) {
-          const transactionCode = generateUniqueString();
+          const transactionCode = generateUniqueString(billerCode);
           if (
             d &&
             d.biller_bill_amount != "" &&

@@ -30,6 +30,8 @@ export const getCustomerBills = async (req, res) => {
 
     let billerData = [];
     for (const cust of custBills) {
+      console.log(cust, "******************");
+
       const billerInfo = await biller.findOne({
         raw: true,
         attributes: [
@@ -109,16 +111,18 @@ export const generateQrforBill = async (req, res) => {
         .status(500)
         .json({ success: false, message: "Something Went Wrong!" });
     }
-    const { biller_bill_amount } = await biller_bills.findOne({
-      raw: true,
-      where: {
-        biller_id: findBiller.biller_id,
-        biller_customer_account_no: biller_customer_account_no,
-      },
-      attributes: ["biller_bill_amount"],
-    });
+    const { biller_bill_amount, transaction_code } = await biller_bills.findOne(
+      {
+        raw: true,
+        where: {
+          biller_id: findBiller.biller_id,
+          biller_customer_account_no: biller_customer_account_no,
+        },
+        attributes: ["biller_bill_amount", "transaction_code"],
+      }
+    );
 
-    const intent = `upi://pay?tr=&tid=&pa=&mc=1234&pn=${findBiller.biller_name}&am=${biller_bill_amount}&cu=&tn=Pay%20for%20merchant`;
+    const intent = `upi://pay?tr=&tid=&pa=&mc=1234&pn=${findBiller.biller_name}&am=${biller_bill_amount}&cu=&tn=Pay%20for%20merchant&txn_code=${transaction_code}`;
     // biller id
     return res.status(200).json({
       success: true,
