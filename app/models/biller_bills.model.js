@@ -20,6 +20,10 @@ export const biller_bills = connection.define(
       type: DataTypes.STRING(6),
       allowNull: true,
     },
+    transaction_code: {
+      type: DataTypes.STRING(20),
+      allowNull: true,
+    },
     biller_customer_account_no: {
       type: DataTypes.STRING(20),
       allowNull: true,
@@ -56,6 +60,7 @@ export const biller_bills = connection.define(
       type: DataTypes.STRING(20),
       allowNull: true,
     },
+
     last_meter_reading: {
       type: DataTypes.STRING(20),
       allowNull: true,
@@ -72,11 +77,11 @@ export const biller_bills = connection.define(
       type: DataTypes.STRING(15),
       allowNull: true,
     },
-    due_date:{
+    due_date: {
       type: DataTypes.STRING(15),
       allowNull: true,
     },
-    
+
     paid_indicator: {
       type: DataTypes.STRING(1),
       allowNull: true,
@@ -89,12 +94,9 @@ export const biller_bills = connection.define(
       type: DataTypes.STRING(15),
       allowNull: true,
     },
-
-  
   },
   {
     timestamps: true, // If you want Sequelize to manage createdAt and updatedAt fields, set this to true
     freezeTableName: true,
-    
   }
 );

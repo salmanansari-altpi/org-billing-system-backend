@@ -208,7 +208,10 @@ export const signin = async (req, res) => {
       data.subs = allSideMenus;
       return data;
     });
-    res.status(200).json({ success: true, data: { token, allMenus } });
+    const userName = `${f_name} ${l_name}`;
+    res
+      .status(200)
+      .json({ success: true, data: { token, allMenus, userName } });
   } catch (err) {
     res.status(500).json({ success: false, message: err });
   }
@@ -216,12 +219,15 @@ export const signin = async (req, res) => {
 
 export const verifyUser = async (req, res) => {
   try {
-    const { id } = req.user;
+    const { id, user_type, party_code } = req.user;
     if (!id) {
       return res.status(401).json({ success: false, message: "Unauthorized" });
     }
-    res.status(200).json({ success: true, message: "User Verified!" });
+    res.status(200).json({ success: true, message: "User Verified!", data: { user_type, party_code }, });
   } catch (err) {
-    res.status(500).json({ success: false, message: "Something went wrong!" });
+    res.status(500).json({
+      success: false,
+      message: "Something went wrong!",
+    });
   }
 };

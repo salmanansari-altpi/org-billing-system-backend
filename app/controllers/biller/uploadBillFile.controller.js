@@ -9,6 +9,7 @@ import path from "path";
 import fs from "fs";
 import cron from "node-cron";
 import { where } from "sequelize";
+import { generateUniqueString } from "../../utils/uniqueString.js";
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage }).single("file");
@@ -35,24 +36,23 @@ const deleteFileAfter3days = (filePath) => {
   setTimeout(() => {
     if (fs.existsSync(filePath)) {
       fs.unlinkSync(filePath);
-     
     }
-  },  60 * 1000); // 3days
+  }, 60 * 1000); // 3days
 };
 
 /********************************************************************************************************** */
-const readOpts = { // <--- need these settings in readFile options
-  cellText:false, 
-  cellDates:true
+const readOpts = {
+  // <--- need these settings in readFile options
+  cellText: false,
+  cellDates: true,
 };
 
 const jsonOpts = {
-
-  defval: '',
+  defval: "",
   blankrows: true,
   raw: false,
-  dateNF: 'd"/"m"/"yyyy' // <--- need dateNF in sheet_to_json options (note the escape chars)
-}
+  dateNF: 'd"/"m"/"yyyy', // <--- need dateNF in sheet_to_json options (note the escape chars)
+};
 export const uploadBillFile = async (req, res) => {
   upload(req, res, async (err) => {
     if (err) {
@@ -73,9 +73,8 @@ export const uploadBillFile = async (req, res) => {
       if (!location_of_bill_file) {
         return res
           .status(203)
-          .json({ sucess: false, data: "location of file not define " });
+          .json({ sucess: false, data: "location of file not define" });
       }
-  
 
       const newDate = new Date().toDateString();
       const filePath = path.join(
@@ -83,13 +82,12 @@ export const uploadBillFile = async (req, res) => {
         `${billerCode}${newDate}.xlsx`
       );
       fs.writeFileSync(filePath, req.file.buffer);
-      const workbook = XLSX.read(req.file.buffer,readOpts);
+      const workbook = XLSX.read(req.file.buffer, readOpts);
       const sheetNameList = workbook.SheetNames;
       const jsonData = XLSX.utils.sheet_to_json(
         workbook.Sheets[sheetNameList[0]],
         jsonOpts
       );
-     
 
       try {
         // Delete existing records for the same customers
@@ -105,15 +103,14 @@ export const uploadBillFile = async (req, res) => {
 
         // Insert new records
         for (const d of jsonData) {
-         
+          const transactionCode = generateUniqueString();
           if (
             d &&
             d.biller_bill_amount != "" &&
             d.biller_customer_account_no != ""
           ) {
-          
-
             await biller_bills.create({
+              transaction_code: transactionCode,
               biller_id: biller_id,
               biller_code: billerCode,
               biller_customer_account_no: d.biller_customer_account_no,
@@ -138,19 +135,16 @@ export const uploadBillFile = async (req, res) => {
           sucess: true,
         });
       } catch (error) {
-      
         return res
           .status(500)
           .send(`Error uploading the file. ${error.message}`);
       }
       //  return res.json(jsonData);
     } catch (error) {
-      
       return res.status(500).send("Error uploading the file.");
     }
   });
 };
-
 
 export const callApi = async (req, res) => {
   const { billerCode } = req.body;
@@ -170,17 +164,23 @@ export const callApi = async (req, res) => {
     // Fetch biller data
     const response = await fetch(location_of_bill_file);
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      throw new Error("Network response was not ok");
     }
 
     const jsondata = await response.json();
     if (!jsondata || !Array.isArray(jsondata)) {
-      return res.status(202).json({ success: false, data: "Data not available!" });
+      return res
+        .status(202)
+        .json({ success: false, data: "Data not available!" });
     }
 
     // Process and save each bill entry
     for (const d of jsondata) {
-      if (d && d.biller_bill_amount !== "" && d.biller_customer_account_no !== "") {
+      if (
+        d &&
+        d.biller_bill_amount !== "" &&
+        d.biller_customer_account_no !== ""
+      ) {
         await biller_bills.create({
           biller_id: biller_id,
           biller_code: billerCode,
@@ -204,15 +204,13 @@ export const callApi = async (req, res) => {
 
     return res.status(200).json({
       success: true,
-      data: "Data Updated Successfully!"
+      data: "Data Updated Successfully!",
     });
-
   } catch (error) {
-
     return res.status(500).json({
       success: false,
       data: "Internal server error",
-      error: error.message
+      error: error.message,
     });
   }
 };
