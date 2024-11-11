@@ -1,4 +1,5 @@
 import { models } from "../../models/index.js";
+import fetch from "node-fetch";
 
 const { billerDetails, biller_bills, biller } = models;
 import multer from "multer";
@@ -163,19 +164,25 @@ export const callApi = async (req, res) => {
 
     // Fetch biller data
     const response = await fetch(location_of_bill_file);
+
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
 
     const jsondata = await response.json();
-    if (!jsondata || !Array.isArray(jsondata)) {
+    if (!jsondata.success) {
+      return res.status(400).json({ success: false, message: 'Something went wrong!' })
+    }
+    
+    if (!Array.isArray(jsondata.data)) {
       return res
         .status(202)
         .json({ success: false, data: "Data not available!" });
     }
 
     // Process and save each bill entry
-    for (const d of jsondata) {
+    for (const d of jsondata.data) {
+      const transaction_code = generateUniqueString(billerCode);
       if (
         d &&
         d.biller_bill_amount !== "" &&
@@ -193,6 +200,7 @@ export const callApi = async (req, res) => {
           biller_taxes: d.biller_taxes || null,
           biller_pending_due: d.biller_pending_due || null,
           biller_total_amount_due: d.biller_total_amount_due || null,
+          transaction_code: transaction_code,
           last_meter_reading: d.last_meter_reading || null,
           current_meter_reading: d.current_meter_reading || null,
           units_consumed: d.units_consumed || null,

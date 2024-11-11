@@ -5,6 +5,8 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import session from "express-session";
 import path from "path";
+import fetch from "node-fetch";
+import http from "http";
 
 export const otps = [];
 export const veriedMobileNos = [];
@@ -39,6 +41,16 @@ import { sendNotification } from "./app/utils/firebaseNoti.js";
 // Mount routes defined in the routes/index.js file
 app.use("/", routes);
 
+app.get("/test", async (req, res) => {
+  try {
+    const response = await fetch("http://localhost:3001/api");
+    const data = await response.json();
+    res.status(200).json({ data });
+  } catch (err) {
+    res.status(500).json({ err });
+  }
+});
+
 app.post("/fcm", async (req, res) => {
   const { token, txnId, body } = req.body;
   const id = 12345;
@@ -47,7 +59,7 @@ app.post("/fcm", async (req, res) => {
     return res.status(400).json({ success: false, message: "Payment Failed!" });
   }
   await sendNotification(token, "Testing", body);
-  
+
   res.status(200).json({
     success: true,
     messgae: "Notification Send Success!",
