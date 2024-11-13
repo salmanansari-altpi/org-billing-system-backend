@@ -154,6 +154,11 @@ export const addNewBiller = async (req, res) => {
         password: "12345",
         status: "1",
         access_code: "1.0",
+        role: "Administration",
+        party_code:biller_code,
+        party_type: "CUST",
+        user_type: "ADMIN",
+        ch_id: 0
       });
 
       await folder_master.create({
