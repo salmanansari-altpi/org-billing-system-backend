@@ -102,9 +102,13 @@ export const consumerRequest = async (req, res) => {
 export const externalLinkQR = async (req, res) => {
   try {
     const { biller_code, amount, unique_id } = req.body;
+    if (!biller_code || !amount || !unique_id) {
+      return res.status(400).json({ success: false, message: "Bad Data!" });
+    }
     const txnCode = generateUniqueString(biller_code);
     const validDate = new Date(new Date().getTime() + 1000 * 60 * 4);
     const valid_upto = formatDateForDatabase(validDate);
+
     await consumer_request.create({
       biller_code,
       amount,
