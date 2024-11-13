@@ -2,6 +2,7 @@ import { connection } from "../../config/db.js";
 import { models } from "../../models/index.js";
 import fs from "fs";
 import path from "path";
+import { user_master } from "../../models/user_master.model.js";
 
 const {
   biller,
@@ -144,6 +145,17 @@ export const addNewBiller = async (req, res) => {
         { Transaction: t }
       );
 
+      await user_master.create({
+        email: email_1,
+        mobile_no: mobile_no_1,
+        user_name: email_1,
+        f_name: contact_name_1,
+        l_name: "",
+        password: "12345",
+        status: "1",
+        access_code: "1.0",
+      });
+
       await folder_master.create({
         location_of_file: dirPath,
       });
@@ -156,7 +168,10 @@ export const addNewBiller = async (req, res) => {
     } catch (error) {
       // Rollback the transaction if any operation fails
       await t.rollback();
-      console.warn("Transaction has been rolled back due to an error:", error.message);
+      console.warn(
+        "Transaction has been rolled back due to an error:",
+        error.message
+      );
       res.status(403).json({
         success: true,
         message: "Transaction has been rolled back due to an error",
