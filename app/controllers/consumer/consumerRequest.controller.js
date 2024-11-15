@@ -23,15 +23,24 @@ export const consumerRequest = async (req, res) => {
         .status(400)
         .json({ success: false, message: "All fields are mandatory!" });
     }
-    const billercheck = await biller.findOne({
-      where: { biller_code: biller_code },
-    });
     const billerInfo = await biller.findOne({
       raw: true,
-      attributes: ["biller_name", "logo_image"],
+      attributes: [
+        "biller_name",
+        "logo_image",
+        "upi_trailer",
+        "source_of_bill_file",
+      ],
       where: { biller_code },
     });
-    if (billercheck.source_of_bill_file == "API") {
+
+    if (!billerInfo) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Biller not found!" });
+    }
+
+    if (billerInfo.source_of_bill_file == "API") {
       const apiBillerData = await api_based_biller.findOne({
         raw: true,
         where: { biller_code: biller_code },
@@ -42,6 +51,10 @@ export const consumerRequest = async (req, res) => {
       if (apiBillerData.api_auth_type === null) {
         const response = await fetch(apiBillerData.api + customer_account_no);
         const [responseData] = await response.json();
+
+        if (!responseData) {
+          throw new Error("Invalid consumer account number!");
+        }
 
         const txnCode = generateUniqueString(biller_code);
         const validTime = new Date(new Date().getTime() + 1000 * 60 * 4);
@@ -55,7 +68,7 @@ export const consumerRequest = async (req, res) => {
           consumer_number: customer_account_no,
         });
 
-        const intent = `upi://pay?tr=${txnCode}&tid=&pa=&mc=1234&pn=${biller_code}&am=${responseData.amount}&cu=&tn=Pay%20for%20merchant`;
+        const intent = `upi://pay?tr=${txnCode}&pa=${billerInfo.upi_trailer}&mc=1234&pn=${biller_code}&am=${responseData.amount}&cu=&tn=Pay%20for%20merchant`;
         const data = {
           ...billerInfo,
           ...responseData,
@@ -73,6 +86,12 @@ export const consumerRequest = async (req, res) => {
         },
       });
 
+      if (!data) {
+        return res
+          .status(400)
+          .json({ success: false, message: "Invalid customer account no!" });
+      }
+
       const { biller_total_amount_due } = data;
       const txnCode = generateUniqueString(biller_code);
       const validTime = new Date(new Date().getTime() + 1000 * 60 * 4);
@@ -83,7 +102,7 @@ export const consumerRequest = async (req, res) => {
         txn_unique_number: txnCode,
         valid_upto,
       });
-      const intent = `upi://pay?tr=${txnCode}&tid=&pa=&mc=1234&pn=${biller_code}&am=${biller_total_amount_due}&cu=&tn=Pay%20for%20merchant`;
+      const intent = `upi://pay?tr=${txnCode}&pa=${billerInfo.upi_trailer}&mc=1234&pn=${biller_code}&am=${biller_total_amount_due}&cu=&tn=Pay%20for%20merchant`;
       const info = {
         ...billerInfo,
         amount: biller_total_amount_due,
@@ -93,9 +112,7 @@ export const consumerRequest = async (req, res) => {
       return res.status(200).json({ success: true, data: info });
     }
   } catch (err) {
-    console.log("--------------------FAILED", err);
-
-    res.status(500).json({ success: false, message: err });
+    res.status(500).json({ success: false, message: err.message });
   }
 };
 
@@ -109,6 +126,15 @@ export const externalLinkQR = async (req, res) => {
     const validDate = new Date(new Date().getTime() + 1000 * 60 * 4);
     const valid_upto = formatDateForDatabase(validDate);
 
+    const uniqueIdExists = await consumer_request.findOne({
+      raw: true,
+      where: { external_reference_id: unique_id },
+    });
+
+    if (uniqueIdExists) {
+      return res.status(400).json({ success: false, message: "Invalid ID!" });
+    }
+
     await consumer_request.create({
       biller_code,
       amount,
@@ -116,12 +142,18 @@ export const externalLinkQR = async (req, res) => {
       valid_upto,
       external_reference_id: unique_id,
     });
-    const { biller_name } = await biller.findOne({
+    const billerInfo = await biller.findOne({
       raw: true,
-      attributes: ["biller_name"],
+      attributes: ["biller_name", "upi_trailer"],
       where: { biller_code },
     });
-    const intent = `upi://pay?tr=${txnCode}&tid=&pa=&mc=1234&pn=${biller_code}&am=${amount}&cu=&tn=Pay%20for%20merchant`;
+    if (!billerInfo) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Biller Not Found!" });
+    }
+    const { biller_name, upi_trailer } = billerInfo;
+    const intent = `upi://pay?tr=${txnCode}&pa=${upi_trailer}&mc=1234&pn=${biller_code}&am=${amount}&cu=&tn=Pay%20for%20merchant`;
     const data = {
       biller_name,
       intent,
@@ -131,6 +163,8 @@ export const externalLinkQR = async (req, res) => {
     };
     res.status(200).json({ success: true, data: data });
   } catch (err) {
+    console.log(err);
+
     res.status(500).json({ success: false, message: err });
   }
 };

@@ -137,7 +137,7 @@ export const generateQrforBill = async (req, res) => {
       consumer_number: biller_customer_account_no,
     });
 
-    const intent = `upi://pay?tr=${txnCode}&tid=&pa=&mc=1234&pn=${findBiller.biller_name}&am=${biller_bill_amount}&cu=&tn=Pay%20for%20merchant`;
+    const intent = `upi://pay?tr=${txnCode}&pa=${findBiller.upi_trailer}&mc=1234&pn=${findBiller.biller_name}&am=${biller_bill_amount}&cu=&tn=Pay%20for%20merchant`;
     // biller id
     return res.status(200).json({
       success: true,
